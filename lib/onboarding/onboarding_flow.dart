@@ -56,7 +56,6 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
       );
     } else {
       Navigator.of(context).pop();
-      // TODO: push main app route
     }
   }
 

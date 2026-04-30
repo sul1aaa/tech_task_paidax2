@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../themes/theme.dart';
+import 'package:tech_task_paidax2/themes/theme.dart';
 
 class StockData {
   final String ticker;
@@ -8,7 +7,7 @@ class StockData {
   final String price;
   final String change;
   final bool isPositive;
-  final List<double> sparkline; // normalized 0–1 values for mini chart
+  final List<double> sparkline;
 
   const StockData({
     required this.ticker,
@@ -20,7 +19,6 @@ class StockData {
   });
 }
 
-/// A polished stock recommendation card shown on the final onboarding screen.
 class RecommendedStockCard extends StatelessWidget {
   final StockData stock;
   final VoidCallback? onTap;
@@ -45,7 +43,7 @@ class RecommendedStockCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: PaidaxColors.bg,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(color: PaidaxColors.divider, width: 1),
           boxShadow: const [
@@ -108,15 +106,15 @@ class RecommendedStockCard extends StatelessWidget {
               ),
             ),
 
-            // Mini sparkline chart
-            SizedBox(
+            // Mini sparkline placeholder
+            const SizedBox(
               width: 56,
               height: 32,
               child: CustomPaint(),
             ),
             const SizedBox(width: 12),
 
-            // Price + change
+            // Price + change badge
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -154,7 +152,7 @@ class RecommendedStockCard extends StatelessWidget {
   }
 }
 
-//---------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
 
 class TopUpCard extends StatelessWidget {
   const TopUpCard({super.key});
@@ -165,10 +163,11 @@ class TopUpCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 34),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 17),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14), color: Color(0xff135BEC)),
+        borderRadius: BorderRadius.circular(14),
+        color: PaidaxColors.topUpCardBg,
+      ),
       child: Row(
         children: [
-          // TEXTS
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,24 +177,23 @@ class TopUpCard extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: PaidaxColors.onPrimaryText,
                       letterSpacing: -0.31),
                 ),
                 Text(
                   'Через Kaspi – мгновенно',
                   style: TextStyle(
                       fontSize: 12,
-                      color: Colors.white70,
+                      color: PaidaxColors.darkSecondaryText,
                       fontWeight: FontWeight.w400),
                 ),
               ],
             ),
           ),
-
-          // ICON
-          const Icon(
-            Icons.credit_card,
-            color: Colors.white,
+          SizedBox(
+            height: 28,
+            width: 28,
+            child: Image.asset('assets/images/icon_card.png'),
           ),
         ],
       ),
@@ -203,7 +201,7 @@ class TopUpCard extends StatelessWidget {
   }
 }
 
-//---------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
 
 class WantStockCard extends StatelessWidget {
   const WantStockCard({super.key});
@@ -214,12 +212,12 @@ class WantStockCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 34),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 17),
       decoration: BoxDecoration(
-          border: Border.all(color: Color(0xffF3F4F6)),
-          borderRadius: BorderRadius.circular(14),
-          color: Colors.white),
+        border: Border.all(color: PaidaxColors.wantStockBorder),
+        borderRadius: BorderRadius.circular(14),
+        color: PaidaxColors.bg,
+      ),
       child: Row(
         children: [
-          // TEXTS
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,22 +227,24 @@ class WantStockCard extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black,
+                      color: PaidaxColors.primaryText,
                       letterSpacing: -0.31),
                 ),
                 Text(
                   'Сохраню и куплю позже',
                   style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                      color: PaidaxColors.secondaryText,
                       fontWeight: FontWeight.w400),
                 ),
               ],
             ),
           ),
-
-          // ICON
-          const Icon(Icons.credit_card, color: Color(0xff135BEC)),
+          SizedBox(
+            height: 28,
+            width: 28,
+            child: Image.asset('assets/images/icon_star.png'),
+          ),
         ],
       ),
     );

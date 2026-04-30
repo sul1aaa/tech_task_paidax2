@@ -24,7 +24,8 @@ class ExperienceSheet extends StatelessWidget {
       children: [
         // ── Header row ───────────────────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 24)
+              .copyWith(top: 16, bottom: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

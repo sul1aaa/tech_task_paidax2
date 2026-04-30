@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../themes/theme.dart';
+import 'package:tech_task_paidax2/themes/theme.dart';
 
 class GoalOption {
   final String id;
   final String label;
-  final IconData icon;
+  final String icon;
 
   const GoalOption({
     required this.id,
@@ -70,38 +69,33 @@ class _GoalGridTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? PaidaxColors.primary.withOpacity(0.05)
-              : Color(0xffF6F6F8),
+              : PaidaxColors.goalTileBg,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top row: icon + checkmark
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? PaidaxColors.primary.withOpacity(0.12)
-                        : Color(0xffE5E7EB),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    option.icon,
-                    size: 20,
-                    color: isSelected
-                        ? PaidaxColors.primary
-                        : PaidaxColors.secondaryText,
-                  ),
-                ),
-              ],
+            // Icon container
+            Container(
+              padding: const EdgeInsets.all(10),
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? PaidaxColors.primary.withOpacity(0.12)
+                    : PaidaxColors.goalIconBg,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.asset(
+                option.icon,
+                color: isSelected
+                    ? PaidaxColors.primary
+                    : PaidaxColors.secondaryText,
+              ),
             ),
-            const SizedBox(
-              height: 24,
-            ),
+
+            const SizedBox(height: 24),
+
             // Label
             Text(
               option.label,

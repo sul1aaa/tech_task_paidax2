@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/widgets/onboarding_back_button.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 import '../widgets/goal_grid_card.dart';
 
 const _goalOptions = [
-  GoalOption(id: 'halal', label: 'Халяль', icon: Icons.cruelty_free_outlined),
-  GoalOption(id: 'income', label: 'Доход', icon: Icons.trending_up_rounded),
-  GoalOption(id: 'safety', label: 'Надёжность', icon: Icons.shield_outlined),
   GoalOption(
-      id: 'diversity', label: 'Разнообразие', icon: Icons.grid_view_rounded),
+      id: 'halal', label: 'Халяль', icon: 'assets/images/icon_star_black.png'),
+  GoalOption(
+      id: 'income', label: 'Доход', icon: 'assets/images/icon_arrow_black.png'),
+  GoalOption(
+      id: 'safety', label: 'Надёжность', icon: 'assets/images/icon_shield.png'),
+  GoalOption(
+      id: 'diversity',
+      label: 'Разнообразие',
+      icon: 'assets/images/icon_grid.png'),
 ];
 
 class GoalsSheet extends StatelessWidget {
@@ -34,11 +40,12 @@ class GoalsSheet extends StatelessWidget {
       children: [
         // ── Header row: back + skip ──────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 24)
+              .copyWith(top: 16, bottom: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _BackButton(onTap: onBack),
+              OnboardingBackButton(onTap: onBack),
               GestureDetector(
                 onTap: onSkip,
                 child: const Text(
@@ -56,7 +63,7 @@ class GoalsSheet extends StatelessWidget {
 
         const SizedBox(height: 20),
 
-        // ── Title — left aligned ─────────────────────────────────────────
+        // ── Title ────────────────────────────────────────────────────────
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
@@ -102,7 +109,8 @@ class GoalsSheet extends StatelessWidget {
 
         // ── CTA ──────────────────────────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 12, 24, 28),
+          padding: const EdgeInsets.symmetric(horizontal: 24)
+              .copyWith(top: 12, bottom: 24),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 200),
             opacity: selectedIds.isNotEmpty ? 1.0 : 0.4,
@@ -113,31 +121,6 @@ class GoalsSheet extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _BackButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _BackButton({required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: PaidaxColors.greyBg,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          size: 18,
-          color: PaidaxColors.primaryText,
-        ),
-      ),
     );
   }
 }

@@ -109,7 +109,8 @@ class OnboardingScaffold extends StatelessWidget {
 
         // ── CTA button ────────────────────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+          padding: const EdgeInsets.symmetric(horizontal: 20)
+              .copyWith(top: 12, bottom: 28),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 200),
             opacity: buttonEnabled ? 1.0 : 0.4,

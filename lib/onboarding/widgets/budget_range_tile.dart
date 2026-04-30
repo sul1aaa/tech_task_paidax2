@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../themes/theme.dart';
+import 'package:tech_task_paidax2/themes/theme.dart';
 
 class BudgetRange {
   final String id;
@@ -15,21 +14,10 @@ class BudgetRange {
 }
 
 const List<BudgetRange> budgetRanges = [
+  BudgetRange(id: 'starter', label: '<50k ₸', sublabel: 'Легкий старт'),
   BudgetRange(
-    id: 'starter',
-    label: '<50k ₸',
-    sublabel: 'Легкий старт',
-  ),
-  BudgetRange(
-    id: 'casual',
-    label: '50 – 200k ₸',
-    sublabel: 'Оптимальный выбор',
-  ),
-  BudgetRange(
-    id: 'whale',
-    label: '>200k ₸',
-    sublabel: 'Премиальный портфель',
-  ),
+      id: 'casual', label: '50 – 200k ₸', sublabel: 'Оптимальный выбор'),
+  BudgetRange(id: 'whale', label: '>200k ₸', sublabel: 'Премиальный портфель'),
 ];
 
 class BudgetRangeSelector extends StatelessWidget {
@@ -80,10 +68,10 @@ class _BudgetTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? PaidaxColors.primary.withOpacity(0.05)
-              : Colors.white,
+              : PaidaxColors.bg,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? PaidaxColors.primary : const Color(0xFFE0E0E0),
+            color: isSelected ? PaidaxColors.primary : PaidaxColors.border,
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -125,9 +113,8 @@ class _BudgetTile extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.transparent,
                 border: Border.all(
-                  color: isSelected
-                      ? PaidaxColors.primary
-                      : const Color(0xFFCCCCCC),
+                  color:
+                      isSelected ? PaidaxColors.primary : PaidaxColors.border,
                   width: isSelected ? 2 : 1.5,
                 ),
               ),

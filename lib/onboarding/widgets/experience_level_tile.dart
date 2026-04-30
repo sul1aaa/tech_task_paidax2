@@ -26,14 +26,14 @@ extension ExperienceLevelExt on ExperienceLevel {
     }
   }
 
-  IconData get icon {
+  String get icon {
     switch (this) {
       case ExperienceLevel.beginner:
-        return Icons.eco_outlined;
+        return 'assets/images/icon_plant.png';
       case ExperienceLevel.intermediate:
-        return Icons.trending_up_rounded;
+        return 'assets/images/icon_arrow.png';
       case ExperienceLevel.expert:
-        return Icons.bar_chart_rounded;
+        return 'assets/images/icon_stats.png';
     }
   }
 }
@@ -86,10 +86,10 @@ class _ExperienceTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? PaidaxColors.primary.withOpacity(0.05)
-              : Colors.white,
+              : PaidaxColors.bg,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? PaidaxColors.primary : const Color(0xFFE0E0E0),
+            color: isSelected ? PaidaxColors.primary : PaidaxColors.border,
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -99,21 +99,14 @@ class _ExperienceTile extends StatelessWidget {
             Container(
               width: 40,
               height: 40,
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? PaidaxColors.primary.withOpacity(0.1)
-                    : PaidaxColors.greyBg,
+                color: PaidaxColors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                level.icon,
-                size: 20,
-                color: isSelected
-                    ? PaidaxColors.primary
-                    : PaidaxColors.secondaryText,
-              ),
+              child: Image.asset(level.icon, color: PaidaxColors.primary),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: 20),
 
             // Labels
             Expanded(
@@ -153,9 +146,8 @@ class _ExperienceTile extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.transparent,
                 border: Border.all(
-                  color: isSelected
-                      ? PaidaxColors.primary
-                      : const Color(0xFFCCCCCC),
+                  color:
+                      isSelected ? PaidaxColors.primary : PaidaxColors.border,
                   width: isSelected ? 2 : 1.5,
                 ),
               ),

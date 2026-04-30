@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/widgets/onboarding_back_button.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 import '../widgets/budget_range_tile.dart';
@@ -26,11 +27,12 @@ class BudgetSheet extends StatelessWidget {
       children: [
         // ── Header row: back + skip ──────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 24)
+              .copyWith(top: 16, bottom: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _BackButton(onTap: onBack),
+              OnboardingBackButton(onTap: onBack),
               GestureDetector(
                 onTap: onSkip,
                 child: const Text(
@@ -48,7 +50,7 @@ class BudgetSheet extends StatelessWidget {
 
         const SizedBox(height: 20),
 
-        // ── Title — left, slightly smaller ──────────────────────────────
+        // ── Title ────────────────────────────────────────────────────────
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
@@ -79,8 +81,9 @@ class BudgetSheet extends StatelessWidget {
                 // Info note
                 Container(
                   decoration: BoxDecoration(
-                      color: Color(0xffF9FAFB),
-                      borderRadius: BorderRadius.circular(10)),
+                    color: PaidaxColors.infoNoteBg,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 18, vertical: 16),
@@ -114,7 +117,8 @@ class BudgetSheet extends StatelessWidget {
 
         // ── CTA ──────────────────────────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 12, 24, 28),
+          padding: const EdgeInsets.symmetric(horizontal: 24)
+              .copyWith(top: 12, bottom: 28),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 200),
             opacity: selectedId != null ? 1.0 : 0.4,
@@ -125,31 +129,6 @@ class BudgetSheet extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _BackButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _BackButton({required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: PaidaxColors.greyBg,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          size: 18,
-          color: PaidaxColors.primaryText,
-        ),
-      ),
     );
   }
 }

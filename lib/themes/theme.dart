@@ -62,6 +62,16 @@ class PaidaxColors {
   static const Color lightBlueAccent = Color(0xFFD5E7FF);
   static const Color purpleColor = Color(0xFFD4D5FF);
 
+  // ── Onboarding specific ──────────────────────────────────────────────────
+  static const Color onboardingBg = Color(0xFFFEFEFE);
+  static const Color goalTileBg = Color(0xFFF6F6F8);
+  static const Color goalIconBg = Color(0xFFE5E7EB);
+  static const Color infoNoteBg = Color(0xFFF9FAFB);
+  static const Color topUpCardBg = Color(0xFF135BEC);
+  static const Color wantStockBorder = Color(0xFFF3F4F6);
+  static const Color stockCardBorder = Color(0xFFE6E6E6);
+  static const Color stockCardShadow = Color(0x0D000000); // black 6%
+
   // ── Crypto ───────────────────────────────────────────────────────────────
   static const Color cryptoBgColor = Color(0xFF14142C);
   static const Color cryptoNegative = Color(0xFFF414FF);
