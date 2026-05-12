@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'themes/theme.dart';
-import 'onboarding/onboarding_flow.dart';
+import '../../../themes/theme.dart';
+import '../../onboarding_flow.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

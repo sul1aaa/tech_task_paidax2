@@ -11,18 +11,10 @@ class OnboardingBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: PaidaxColors.greyBg,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          size: 18,
-          color: PaidaxColors.primaryText,
-        ),
+      child: Icon(
+        Icons.arrow_back_ios_new_rounded,
+        size: 18,
+        color: PaidaxColors.primaryText,
       ),
     );
   }

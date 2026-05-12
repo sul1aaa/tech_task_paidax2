@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tech_task_paidax2/onboarding/widgets/onboarding_back_button.dart';
+import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_back_button_widget.dart';
+import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_skip_button_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
-import '../widgets/budget_range_tile.dart';
+import '../widgets/budget_range_tile_widget.dart';
 
 class BudgetSheet extends StatelessWidget {
   final String? selectedId;
@@ -22,10 +23,11 @@ class BudgetSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ── Header row: back + skip ──────────────────────────────────────
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24)
               .copyWith(top: 16, bottom: 0),
@@ -33,40 +35,16 @@ class BudgetSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               OnboardingBackButton(onTap: onBack),
-              GestureDetector(
-                onTap: onSkip,
-                child: const Text(
-                  'Пропустить',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: PaidaxColors.primary,
-                  ),
-                ),
-              ),
+              OnboardingSkipButton(onSkip: onSkip),
             ],
           ),
         ),
-
         const SizedBox(height: 20),
-
-        // ── Title ────────────────────────────────────────────────────────
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Text(
-            'С какой суммы\nначнём?',
-            style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-                color: PaidaxColors.primaryText,
-                height: 1.2,
-                letterSpacing: -0.32),
-          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text('С какой суммы\nначнём?', style: theme.displayMedium),
         ),
-
         const SizedBox(height: 4),
-
-        // ── Radio list ───────────────────────────────────────────────────
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -89,21 +67,17 @@ class BudgetSheet extends StatelessWidget {
                         horizontal: 18, vertical: 16),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.info_outline_rounded,
                           size: 15,
                           color: PaidaxColors.primary,
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             'Мы подберём активы на основе вашего выбора.',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: PaidaxColors.secondaryText,
-                                height: 1.4,
-                                fontWeight: FontWeight.w400),
+                            style: theme.bodySmall,
                           ),
                         ),
                       ],
@@ -114,8 +88,6 @@ class BudgetSheet extends StatelessWidget {
             ),
           ),
         ),
-
-        // ── CTA ──────────────────────────────────────────────────────────
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24)
               .copyWith(top: 12, bottom: 28),
