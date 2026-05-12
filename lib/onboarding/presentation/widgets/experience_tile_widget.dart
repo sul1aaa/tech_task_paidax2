@@ -1,73 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/presentation/widgets/experience_level_tile_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
-enum ExperienceLevel { beginner, intermediate, expert }
-
-extension ExperienceLevelExt on ExperienceLevel {
-  String get label {
-    switch (this) {
-      case ExperienceLevel.beginner:
-        return 'Новичок';
-      case ExperienceLevel.intermediate:
-        return 'Инвестировал';
-      case ExperienceLevel.expert:
-        return 'Регулярно';
-    }
-  }
-
-  String get description {
-    switch (this) {
-      case ExperienceLevel.beginner:
-        return 'Только начинаю свой путь в мире инвестиций';
-      case ExperienceLevel.intermediate:
-        return 'Есть базовые знания и первый опыт сделок';
-      case ExperienceLevel.expert:
-        return 'Активно торгую и слежу за рынком';
-    }
-  }
-
-  String get icon {
-    switch (this) {
-      case ExperienceLevel.beginner:
-        return 'assets/images/icon_plant.png';
-      case ExperienceLevel.intermediate:
-        return 'assets/images/icon_arrow.png';
-      case ExperienceLevel.expert:
-        return 'assets/images/icon_stats.png';
-    }
-  }
-}
-
-class ExperienceLevelSelector extends StatelessWidget {
-  final ExperienceLevel? selected;
-  final ValueChanged<ExperienceLevel> onChanged;
-
-  const ExperienceLevelSelector({
-    super.key,
-    required this.selected,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: ExperienceLevel.values
-          .map((level) => _ExperienceTile(
-                level: level,
-                isSelected: selected == level,
-                onTap: () => onChanged(level),
-              ))
-          .toList(),
-    );
-  }
-}
-
-class _ExperienceTile extends StatelessWidget {
+class ExperienceTile extends StatelessWidget {
   final ExperienceLevel level;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _ExperienceTile({
+  const ExperienceTile({
+    super.key,
     required this.level,
     required this.isSelected,
     required this.onTap,
@@ -113,24 +54,10 @@ class _ExperienceTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    level.label,
-                    style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: PaidaxColors.primaryText,
-                        letterSpacing: -0.43),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    level.description,
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: PaidaxColors.secondaryText,
-                        height: 1.3,
-                        letterSpacing: -0.15),
-                  ),
+                  Text(level.label,
+                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(level.description,
+                      style: Theme.of(context).textTheme.bodyMedium),
                 ],
               ),
             ),

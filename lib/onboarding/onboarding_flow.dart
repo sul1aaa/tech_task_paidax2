@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 
-import 'sheets/experience_sheet.dart';
-import 'sheets/goals_sheet.dart';
-import 'sheets/budget_sheet.dart';
-import 'sheets/recommendations_sheet.dart';
-import 'widgets/experience_level_tile.dart';
+import 'presentation/sheets/experience_sheet.dart';
+import 'presentation/sheets/goals_sheet.dart';
+import 'presentation/sheets/budget_sheet.dart';
+import 'presentation/sheets/recommendations_sheet.dart';
+import 'presentation/widgets/experience_level_tile_widget.dart';
 
-// ── State ─────────────────────────────────────────────────────────────────────
-
-class _OnboardingState {
+class OnboardingData {
   final ExperienceLevel? experience;
   final Set<String> goalIds;
   final String? budgetId;
 
-  const _OnboardingState({
+  const OnboardingData({
     this.experience,
     this.goalIds = const {},
     this.budgetId,
   });
 
-  _OnboardingState copyWith({
+  OnboardingData copyWith({
     ExperienceLevel? experience,
     Set<String>? goalIds,
     String? budgetId,
   }) {
-    return _OnboardingState(
+    return OnboardingData(
       experience: experience ?? this.experience,
       goalIds: goalIds ?? this.goalIds,
       budgetId: budgetId ?? this.budgetId,
     );
   }
 }
-
-// ── Flow ──────────────────────────────────────────────────────────────────────
 
 class OnboardingFlow extends StatefulWidget {
   const OnboardingFlow({super.key});
@@ -44,7 +40,7 @@ class OnboardingFlow extends StatefulWidget {
 class _OnboardingFlowState extends State<OnboardingFlow> {
   final _pageController = PageController();
   int _currentStep = 0;
-  _OnboardingState _data = const _OnboardingState();
+  OnboardingData _data = const OnboardingData();
 
   static const _totalSteps = 4;
 
@@ -117,6 +113,7 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
         RecommendationsSheet(
           onNext: _next,
           onBack: _back,
+          onSkip: _skip,
         ),
       ],
     );

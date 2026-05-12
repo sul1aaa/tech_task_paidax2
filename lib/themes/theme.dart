@@ -93,6 +93,7 @@ class PaidaxColors {
   static const Color slateHeading = Color(0xFF0D141B);
 
   // ── Decoration / Border ──────────────────────────────────────────────────
+  static const Color borderlightgrey = Color(0xFFF3F4F6);
   static const Color border = Color(0xFFCCCCCC);
   static const Color borderGreyColor = Color(0xFFF6F6F6);
   static const Color blackBorder = Colors.black;
@@ -177,4 +178,125 @@ class PaidaxDecorations {
     color: PaidaxColors.cryptoBgColor,
     border: Border.all(color: PaidaxColors.cryptoBorderColor, width: 1),
   );
+}
+
+class PaidaxTheme {
+  PaidaxTheme._();
+
+  static ThemeData buildTheme() {
+    return ThemeData(
+      useMaterial3: true,
+      textTheme: _buildTextTheme(),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: PaidaxColors.primary,
+          foregroundColor: Colors.white,
+          minimumSize: const Size(double.infinity, 56),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 0,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.31,
+          ),
+        ),
+      ),
+    );
+  }
+
+  static TextTheme _buildTextTheme() {
+    return const TextTheme(
+      // onboardingTitle32
+      displayLarge: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 32,
+          fontWeight: FontWeight.w700,
+          height: 1.15,
+          letterSpacing: -0.39),
+      // onboardingTitle28
+      displayMedium: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          height: 1.15,
+          letterSpacing: -0.32),
+      // sectionTitle
+      displaySmall: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          height: 1.2),
+      // budgetTileLabel
+      headlineLarge: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 22,
+          fontWeight: FontWeight.w600),
+      // cardTitle / cardPrice
+      headlineMedium: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          letterSpacing: -0.45),
+      // budgetTileLabel
+      headlineSmall: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.44),
+      // experienceTileLabel
+      titleLarge: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.43),
+      // actionCardTitle / emptyAccountText
+      titleMedium: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.31),
+      // experienceTileDescription / budgetTileSublabel
+      titleSmall: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 14,
+          fontWeight: FontWeight.w600),
+      // onboardingSubtitle
+      bodyLarge: TextStyle(
+          color: PaidaxColors.secondaryText,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          height: 1.5,
+          letterSpacing: -0.31),
+      // bodyMedium / experienceTileDescription
+      bodyMedium: TextStyle(
+          color: PaidaxColors.secondaryText,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          height: 1.3,
+          letterSpacing: -0.15),
+      // infoNote / actionCardSubtitle
+      bodySmall: TextStyle(
+          color: PaidaxColors.secondaryText,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          height: 1.4),
+      // skipButton
+      labelLarge: TextStyle(
+          color: PaidaxColors.primary,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+          letterSpacing: -0.23),
+      // cardPriceChange
+      labelMedium: TextStyle(
+          color: PaidaxColors.shariaCompliantGreen,
+          fontSize: 14,
+          fontWeight: FontWeight.bold),
+      labelSmall: TextStyle(
+          color: PaidaxColors.primaryText,
+          fontSize: 11,
+          fontWeight: FontWeight.w500),
+    );
+  }
 }
