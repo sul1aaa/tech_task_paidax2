@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../themes/theme.dart';
 
 /// Compact inline banner — "Обновите документ"
@@ -89,7 +90,8 @@ class DocumentUpdateBanner extends StatelessWidget {
                       SizedBox(
                           height: 16,
                           width: 16,
-                          child: Image.asset('assets/images/icon_scan.png')),
+                          child:
+                              SvgPicture.asset('assets/images/icon_scan.svg')),
                       SizedBox(
                         width: 8,
                       ),
