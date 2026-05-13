@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PaidaxColors {
   PaidaxColors._();
@@ -93,7 +94,6 @@ class PaidaxColors {
   static const Color slateHeading = Color(0xFF0D141B);
 
   // ── Decoration / Border ──────────────────────────────────────────────────
-  static const Color borderlightgrey = Color(0xFFF3F4F6);
   static const Color border = Color(0xFFCCCCCC);
   static const Color borderGreyColor = Color(0xFFF6F6F6);
   static const Color blackBorder = Colors.black;
@@ -136,167 +136,439 @@ class PaidaxColors {
 
 // ────────────────────────────────────────────────────────────────────────────
 
-class PaidaxDecorations {
-  PaidaxDecorations._();
+// Global key for showing snackbars / material banners from anywhere.
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
 
-  static final BoxDecoration boxDecor = BoxDecoration(
-    borderRadius: BorderRadius.circular(10),
-    color: Colors.white,
-    boxShadow: const [
-      BoxShadow(
-        color: Color(0xFFE8E8E8),
-        offset: Offset(0, 1),
-        blurRadius: 4,
+/// Returns the canonical Paidax [ThemeData].
+/// Call this once — in your [MaterialApp] or [MaterialApp.router] — and nowhere else.
+ThemeData buildPaidaxTheme() {
+  return ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    visualDensity: VisualDensity.standard,
+
+    // ── Colors ──────────────────────────────────────────────────────────
+    primaryColor: PaidaxColors.primary,
+    scaffoldBackgroundColor: PaidaxColors.bg,
+    dividerColor: PaidaxColors.divider,
+
+    colorScheme: const ColorScheme.light(
+      primary: PaidaxColors.primary,
+      onPrimary: PaidaxColors.onPrimaryText,
+      secondary: PaidaxColors.primary2,
+      onSecondary: PaidaxColors.onPrimaryText,
+      tertiary: PaidaxColors.tertiary,
+      surface: PaidaxColors.bg,
+      onSurface: PaidaxColors.primaryText,
+      error: PaidaxColors.error,
+      primaryContainer: PaidaxColors.primaryContainer,
+    ),
+
+    // ── Typography ───────────────────────────────────────────────────────
+    textTheme: _buildTextTheme(
+      baseColor: PaidaxColors.primaryText,
+      decorationColor: PaidaxColors.primaryText,
+    ),
+
+    primaryTextTheme: _buildTextTheme(
+      baseColor: PaidaxColors.primary,
+      decorationColor: PaidaxColors.primary,
+    ),
+
+    // ── Progress indicator ───────────────────────────────────────────────
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: PaidaxColors.primary,
+    ),
+
+    // ── AppBar ───────────────────────────────────────────────────────────
+    appBarTheme: const AppBarTheme(
+      centerTitle: true,
+      backgroundColor: PaidaxColors.barBg,
+      surfaceTintColor: Colors.transparent,
+      iconTheme: IconThemeData(color: PaidaxColors.barIcon),
+      actionsIconTheme: IconThemeData(color: PaidaxColors.barIcon),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      titleTextStyle: TextStyle(
+        color: PaidaxColors.barForeground,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
       ),
-    ],
-  );
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    ),
 
-  static final BoxDecoration boxWithBorder = BoxDecoration(
-    borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: PaidaxColors.divider, width: 1),
-    color: Colors.white,
-  );
+    // ── Bottom navigation ────────────────────────────────────────────────
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 8,
+      backgroundColor: PaidaxColors.bg,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      selectedItemColor: PaidaxColors.primary,
+      unselectedItemColor: PaidaxColors.secondaryText,
+      type: BottomNavigationBarType.fixed,
+    ),
 
-  static final BoxDecoration boxPrimaryWithoutBorder = BoxDecoration(
-    borderRadius: BorderRadius.circular(8),
-    color: PaidaxColors.primary.withOpacity(0.1),
-  );
+    // ── NavigationBar (Material 3) ───────────────────────────────────────
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: PaidaxColors.bg,
+      indicatorColor: PaidaxColors.primaryContainer,
+      labelTextStyle: WidgetStateProperty.resolveWith(
+        (states) => TextStyle(
+          fontSize: 11,
+          fontWeight: states.contains(WidgetState.selected)
+              ? FontWeight.w600
+              : FontWeight.w400,
+          color: states.contains(WidgetState.selected)
+              ? PaidaxColors.primary
+              : PaidaxColors.secondaryText,
+        ),
+      ),
+    ),
 
-  static final BoxDecoration boxWithPrimaryBorder = BoxDecoration(
-    borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: PaidaxColors.primary, width: 1),
-  );
+    // ── TabBar ───────────────────────────────────────────────────────────
+    tabBarTheme: const TabBarTheme(
+      indicatorColor: PaidaxColors.primary,
+      dividerColor: PaidaxColors.divider,
+      labelColor: PaidaxColors.primaryText,
+      unselectedLabelColor: PaidaxColors.secondaryText,
+      labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+      unselectedLabelStyle:
+          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    ),
 
-  static final BoxDecoration slateCard = BoxDecoration(
-    borderRadius: BorderRadius.circular(12),
-    color: PaidaxColors.slateCardBg,
-    border: Border.all(color: PaidaxColors.slateCardBorder, width: 1),
-  );
+    // ── Buttons ──────────────────────────────────────────────────────────
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        backgroundColor: PaidaxColors.primary,
+        foregroundColor: PaidaxColors.onPrimaryText,
+        disabledBackgroundColor: PaidaxColors.containerBg,
+        disabledForegroundColor: PaidaxColors.secondaryText,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        minimumSize: const Size(double.infinity, 48),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+      ),
+    ),
 
-  static final BoxDecoration cryptoCard = BoxDecoration(
-    borderRadius: BorderRadius.circular(12),
-    color: PaidaxColors.cryptoBgColor,
-    border: Border.all(color: PaidaxColors.cryptoBorderColor, width: 1),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: PaidaxColors.containerBg,
+        foregroundColor: PaidaxColors.primaryText,
+        disabledBackgroundColor: Colors.grey,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        minimumSize: const Size(double.infinity, 48),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+      ),
+    ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: PaidaxColors.primary,
+        side: const BorderSide(color: PaidaxColors.primary, width: 1.5),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        minimumSize: const Size(double.infinity, 48),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+      ),
+    ),
+
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: PaidaxColors.primary,
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+      ),
+    ),
+
+    // ── FAB ──────────────────────────────────────────────────────────────
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      shape: CircleBorder(),
+      backgroundColor: PaidaxColors.primary,
+      foregroundColor: PaidaxColors.onPrimaryText,
+      elevation: 4,
+      hoverElevation: 6,
+    ),
+
+    // ── Input / TextField ────────────────────────────────────────────────
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.white,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      hintStyle: const TextStyle(
+        fontSize: 15,
+        color: PaidaxColors.secondaryText,
+        fontWeight: FontWeight.w400,
+      ),
+      labelStyle: const TextStyle(
+        fontSize: 15,
+        color: PaidaxColors.secondaryText,
+        overflow: TextOverflow.visible,
+      ),
+      floatingLabelStyle: const TextStyle(
+        fontSize: 13,
+        color: PaidaxColors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(width: 0, color: Colors.transparent),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(width: 1.5, color: PaidaxColors.primary),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(width: 1.5, color: PaidaxColors.error),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(width: 1.5, color: PaidaxColors.error),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(width: 0, color: Colors.transparent),
+      ),
+    ),
+
+    // ── Card ─────────────────────────────────────────────────────────────
+    cardTheme: CardTheme(
+      color: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: PaidaxColors.divider, width: 1),
+      ),
+    ),
+
+    // ── List tile ────────────────────────────────────────────────────────
+    listTileTheme: const ListTileThemeData(
+      textColor: PaidaxColors.primaryText,
+      iconColor: PaidaxColors.primaryText,
+      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+    ),
+
+    // ── Chip ─────────────────────────────────────────────────────────────
+    chipTheme: ChipThemeData(
+      backgroundColor: PaidaxColors.greyBg,
+      selectedColor: PaidaxColors.primaryContainer,
+      labelStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: PaidaxColors.primaryText,
+      ),
+      side: const BorderSide(color: PaidaxColors.divider, width: 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    ),
+
+    // ── Divider ──────────────────────────────────────────────────────────
+    dividerTheme: const DividerThemeData(
+      color: PaidaxColors.divider,
+      thickness: 1,
+      space: 1,
+    ),
+
+    // ── Switch ───────────────────────────────────────────────────────────
+    switchTheme: SwitchThemeData(
+      thumbColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.selected)
+            ? PaidaxColors.onPrimaryText
+            : PaidaxColors.secondaryText;
+      }),
+      trackColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.selected)
+            ? PaidaxColors.primary
+            : PaidaxColors.grey;
+      }),
+    ),
+
+    // ── Checkbox ─────────────────────────────────────────────────────────
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.selected)
+            ? PaidaxColors.primary
+            : Colors.transparent;
+      }),
+      checkColor: WidgetStateProperty.all(PaidaxColors.onPrimaryText),
+      side: const BorderSide(color: PaidaxColors.border, width: 1.5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    ),
+
+    // ── Radio ────────────────────────────────────────────────────────────
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.selected)
+            ? PaidaxColors.primary
+            : PaidaxColors.secondaryText;
+      }),
+    ),
+
+    // ── Snackbar ─────────────────────────────────────────────────────────
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: PaidaxColors.primaryText,
+      contentTextStyle: const TextStyle(
+        color: PaidaxColors.onPrimaryText,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      behavior: SnackBarBehavior.floating,
+    ),
+
+    // ── Bottom sheet ─────────────────────────────────────────────────────
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: PaidaxColors.bg,
+      surfaceTintColor: Colors.transparent,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      showDragHandle: true,
+      dragHandleColor: PaidaxColors.grey,
+      elevation: 8,
+    ),
+
+    // ── Dialog ───────────────────────────────────────────────────────────
+    dialogTheme: DialogTheme(
+      backgroundColor: PaidaxColors.bg,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      titleTextStyle: const TextStyle(
+        color: PaidaxColors.primaryText,
+        fontSize: 17,
+        fontWeight: FontWeight.w700,
+      ),
+      contentTextStyle: const TextStyle(
+        color: PaidaxColors.secondaryText,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+
+    // ── Tooltip ──────────────────────────────────────────────────────────
+    tooltipTheme: TooltipThemeData(
+      decoration: BoxDecoration(
+        color: PaidaxColors.primaryText.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      textStyle: const TextStyle(
+        color: PaidaxColors.onPrimaryText,
+        fontSize: 12,
+      ),
+    ),
   );
 }
 
-class PaidaxTheme {
-  PaidaxTheme._();
+// ─── Text Theme Builder ───────────────────────────────────────────────────────
+TextTheme _buildTextTheme({
+  required Color baseColor,
+  required Color decorationColor,
+}) {
+  return TextTheme(
+    displayLarge: TextStyle(
+        color: baseColor,
+        fontSize: 32,
+        fontWeight: FontWeight.w700,
+        decorationColor: decorationColor),
+    displayMedium: TextStyle(
+        color: baseColor,
+        fontSize: 28,
+        fontWeight: FontWeight.w700,
+        decorationColor: decorationColor),
+    displaySmall: TextStyle(
+        color: baseColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+        decorationColor: decorationColor),
+    headlineLarge: TextStyle(
+        color: baseColor,
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        decorationColor: decorationColor),
+    headlineMedium: TextStyle(
+        color: baseColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        decorationColor: decorationColor),
+    headlineSmall: TextStyle(
+        color: baseColor,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        decorationColor: decorationColor),
+    titleLarge: TextStyle(
+        color: baseColor,
+        fontSize: 17,
+        fontWeight: FontWeight.w700,
+        decorationColor: decorationColor),
+    titleMedium: TextStyle(
+        color: baseColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        decorationColor: decorationColor),
+    titleSmall: TextStyle(
+        color: baseColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        decorationColor: decorationColor),
+    bodyLarge: TextStyle(
+        color: baseColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        decorationColor: decorationColor),
+    bodyMedium: TextStyle(
+        color: baseColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        decorationColor: decorationColor),
+    bodySmall: TextStyle(
+        color: baseColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        decorationColor: decorationColor),
+    labelLarge: TextStyle(
+        color: baseColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        decorationColor: decorationColor),
+    labelMedium: TextStyle(
+        color: baseColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        decorationColor: decorationColor),
+    labelSmall: TextStyle(
+        color: baseColor,
+        fontSize: 11,
+        fontWeight: FontWeight.w500,
+        decorationColor: decorationColor),
+  );
+}
 
-  static ThemeData buildTheme() {
-    return ThemeData(
-      useMaterial3: true,
-      textTheme: _buildTextTheme(),
-      filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(
-          backgroundColor: PaidaxColors.primary,
-          foregroundColor: Colors.white,
-          minimumSize: const Size(double.infinity, 56),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 0,
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.31,
-          ),
-        ),
-      ),
-    );
-  }
+/// Optional: keep [PaidaxApplication] if you use a router delegate elsewhere.
+/// It now delegates to [buildPaidaxTheme] instead of duplicating it.
+class PaidaxApplication extends StatelessWidget {
+  final RouterDelegate<Object> routerDelegate;
 
-  static TextTheme _buildTextTheme() {
-    return const TextTheme(
-      // onboardingTitle32
-      displayLarge: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 32,
-          fontWeight: FontWeight.w700,
-          height: 1.15,
-          letterSpacing: -0.39),
-      // onboardingTitle28
-      displayMedium: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 28,
-          fontWeight: FontWeight.w700,
-          height: 1.15,
-          letterSpacing: -0.32),
-      // sectionTitle
-      displaySmall: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-          height: 1.2),
-      // budgetTileLabel
-      headlineLarge: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 22,
-          fontWeight: FontWeight.w600),
-      // cardTitle / cardPrice
-      headlineMedium: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          letterSpacing: -0.45),
-      // budgetTileLabel
-      headlineSmall: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-          letterSpacing: -0.44),
-      // experienceTileLabel
-      titleLarge: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.43),
-      // actionCardTitle / emptyAccountText
-      titleMedium: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          letterSpacing: -0.31),
-      // experienceTileDescription / budgetTileSublabel
-      titleSmall: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 14,
-          fontWeight: FontWeight.w600),
-      // onboardingSubtitle
-      bodyLarge: TextStyle(
-          color: PaidaxColors.secondaryText,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          height: 1.5,
-          letterSpacing: -0.31),
-      // bodyMedium / experienceTileDescription
-      bodyMedium: TextStyle(
-          color: PaidaxColors.secondaryText,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          height: 1.3,
-          letterSpacing: -0.15),
-      // infoNote / actionCardSubtitle
-      bodySmall: TextStyle(
-          color: PaidaxColors.secondaryText,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          height: 1.4),
-      // skipButton
-      labelLarge: TextStyle(
-          color: PaidaxColors.primary,
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-          letterSpacing: -0.23),
-      // cardPriceChange
-      labelMedium: TextStyle(
-          color: PaidaxColors.shariaCompliantGreen,
-          fontSize: 14,
-          fontWeight: FontWeight.bold),
-      labelSmall: TextStyle(
-          color: PaidaxColors.primaryText,
-          fontSize: 11,
-          fontWeight: FontWeight.w500),
+  const PaidaxApplication({super.key, required this.routerDelegate});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      scaffoldMessengerKey: snackbarKey,
+      title: 'Paidax',
+      debugShowCheckedModeBanner: false,
+      theme: buildPaidaxTheme(),
+      routerDelegate: routerDelegate,
     );
   }
 }

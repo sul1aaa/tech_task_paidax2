@@ -45,7 +45,7 @@ class ActionCard extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
-                        ?.copyWith(color: titleColor)),
+                        ?.copyWith(color: titleColor, letterSpacing: -0.31)),
                 Text(subtitle,
                     style: Theme.of(context)
                         .textTheme

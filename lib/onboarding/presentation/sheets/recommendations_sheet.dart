@@ -103,7 +103,9 @@ class RecommendationsSheet extends StatelessWidget {
                                         Text('Apple Inc.',
                                             style: theme.headlineMedium),
                                         Text('AAPL · NASDAQ',
-                                            style: theme.bodyMedium),
+                                            style: theme.bodyMedium?.copyWith(
+                                                color:
+                                                    PaidaxColors.greyButton)),
                                       ],
                                     ),
                                     Column(
@@ -113,7 +115,9 @@ class RecommendationsSheet extends StatelessWidget {
                                         Text('\$189.43',
                                             style: theme.headlineMedium),
                                         Text('+1.24%',
-                                            style: theme.labelMedium),
+                                            style: theme.labelMedium?.copyWith(
+                                                color: PaidaxColors
+                                                    .chartPositive)),
                                       ],
                                     ),
                                   ],
@@ -134,8 +138,8 @@ class RecommendationsSheet extends StatelessWidget {
               child: Text(
                 'На счёте пока пусто',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    fontWeight: FontWeight.w500,
+                    color: PaidaxColors.secondaryText),
               ),
             ),
             const SizedBox(height: 16),

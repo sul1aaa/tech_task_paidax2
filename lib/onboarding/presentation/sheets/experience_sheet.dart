@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_skip_button_widget.dart';
+import 'package:tech_task_paidax2/themes/theme.dart';
 
 import '../widgets/experience_level_tile_widget.dart';
 
@@ -47,7 +48,7 @@ class ExperienceSheet extends StatelessWidget {
           child: Text(
             'Ваш опыт поможет нам персонализировать инвестиционные рекомендации',
             textAlign: TextAlign.center,
-            style: theme.bodyLarge,
+            style: theme.bodyLarge?.copyWith(color: PaidaxColors.secondaryText),
           ),
         ),
         const SizedBox(height: 40),

@@ -57,7 +57,10 @@ class ExperienceTile extends StatelessWidget {
                   Text(level.label,
                       style: Theme.of(context).textTheme.titleLarge),
                   Text(level.description,
-                      style: Theme.of(context).textTheme.bodyMedium),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: PaidaxColors.secondaryText)),
                 ],
               ),
             ),

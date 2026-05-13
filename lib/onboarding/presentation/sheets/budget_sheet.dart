@@ -77,7 +77,8 @@ class BudgetSheet extends StatelessWidget {
                         Expanded(
                           child: Text(
                             'Мы подберём активы на основе вашего выбора.',
-                            style: theme.bodySmall,
+                            style: theme.bodySmall
+                                ?.copyWith(color: PaidaxColors.secondaryText),
                           ),
                         ),
                       ],

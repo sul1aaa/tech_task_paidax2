@@ -55,6 +55,9 @@ class GoalsSheet extends StatelessWidget {
           child: Text('Что для вас важно?',
               style: Theme.of(context).textTheme.displayLarge),
         ),
+        SizedBox(
+          height: 8,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text('Выберите одно или несколько',

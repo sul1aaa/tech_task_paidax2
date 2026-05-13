@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/documents/presentation/screens/document_updated_screen.dart';
+import 'package:tech_task_paidax2/documents/presentation/screens/document_widgets_preview_screen.dart';
 
 import '../../../themes/theme.dart';
 import '../../onboarding_flow.dart';
@@ -30,17 +32,25 @@ class HomeScreen extends StatelessWidget {
               const Spacer(flex: 3),
 
               // Logo / brand mark
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: PaidaxColors.primary,
-                  borderRadius: BorderRadius.circular(14),
+              GestureDetector(
+                child: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: PaidaxColors.primary,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Icon(
+                    Icons.show_chart_rounded,
+                    color: Colors.white,
+                    size: 28,
+                  ),
                 ),
-                child: const Icon(
-                  Icons.show_chart_rounded,
-                  color: Colors.white,
-                  size: 28,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const DocumentWidgetsPreviewScreen(),
+                  ),
                 ),
               ),
 
@@ -100,7 +110,17 @@ class HomeScreen extends StatelessWidget {
               // Secondary action
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DocumentUpdatedScreen(
+                          // Передаем функцию, которая выполнится ТОЛЬКО при нажатии кнопки внутри экрана
+                          onGoBack: () => Navigator.pop(context),
+                        ),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Already have an account? Sign in',
                     style: TextStyle(

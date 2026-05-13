@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/presentation/screens/home_screen.dart';
+
 import 'themes/theme.dart';
-import 'onboarding/presentation/screens/home_screen.dart';
 
 void main() {
   runApp(const PaidaxApp());
@@ -14,7 +15,7 @@ class PaidaxApp extends StatelessWidget {
     return MaterialApp(
       title: 'Paidax',
       debugShowCheckedModeBanner: false,
-      theme: PaidaxTheme.buildTheme(),
+      theme: buildPaidaxTheme(),
       home: const HomeScreen(),
     );
   }

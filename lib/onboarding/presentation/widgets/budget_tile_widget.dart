@@ -45,7 +45,10 @@ class BudgetTile extends StatelessWidget {
                   Text(range.label,
                       style: Theme.of(context).textTheme.headlineSmall),
                   Text(range.sublabel,
-                      style: Theme.of(context).textTheme.bodyMedium),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: PaidaxColors.secondaryText)),
                 ],
               ),
             ),

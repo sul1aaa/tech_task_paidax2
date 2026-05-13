@@ -56,7 +56,7 @@ class _GoalGridTileState extends State<GoalGridTile> {
                 widget.option.icon,
                 color: widget.isSelected
                     ? PaidaxColors.primary
-                    : PaidaxColors.secondaryText,
+                    : PaidaxColors.primaryText,
               ),
             ),
             const SizedBox(height: 24),
