@@ -45,13 +45,18 @@ class DocumentUpdatedScreen extends StatelessWidget {
               FilledButton(
                 onPressed: onGoBack,
                 style: FilledButton.styleFrom(
-                  minimumSize:
-                      const Size(double.infinity, 40), // width + height
+                  minimumSize: const Size(double.infinity, 40),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 child: Text(
                   'Go back',
                   style: theme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w700, color: PaidaxColors.accent),
+                    fontWeight: FontWeight.w700,
+                    color: PaidaxColors.accent,
+                    fontSize: 14,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),

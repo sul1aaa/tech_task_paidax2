@@ -140,6 +140,40 @@ class PaidaxColors {
 final GlobalKey<ScaffoldMessengerState> snackbarKey =
     GlobalKey<ScaffoldMessengerState>();
 
+// ── Inter font family ─────────────────────────────────────────────────────────
+// Matches the `family` name declared in pubspec.yaml.
+//
+// pubspec.yaml entry (adjust asset paths to match your project structure):
+//
+//   flutter:
+//     fonts:
+//       - family: Inter
+//         fonts:
+//           - asset: assets/fonts/Inter-Regular.ttf
+//             weight: 400
+//           - asset: assets/fonts/Inter-Medium.ttf
+//             weight: 500
+//           - asset: assets/fonts/Inter-SemiBold.ttf
+//             weight: 600
+//           - asset: assets/fonts/Inter-Bold.ttf
+//             weight: 700
+
+const String _inter = 'Inter';
+
+TextStyle _interStyle({
+  required double fontSize,
+  required FontWeight fontWeight,
+  required Color color,
+  Color? decorationColor,
+}) =>
+    TextStyle(
+      fontFamily: _inter,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      decorationColor: decorationColor ?? color,
+    );
+
 /// Returns the canonical Paidax [ThemeData].
 /// Call this once — in your [MaterialApp] or [MaterialApp.router] — and nowhere else.
 ThemeData buildPaidaxTheme() {
@@ -182,20 +216,20 @@ ThemeData buildPaidaxTheme() {
     ),
 
     // ── AppBar ───────────────────────────────────────────────────────────
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       centerTitle: true,
       backgroundColor: PaidaxColors.barBg,
       surfaceTintColor: Colors.transparent,
-      iconTheme: IconThemeData(color: PaidaxColors.barIcon),
-      actionsIconTheme: IconThemeData(color: PaidaxColors.barIcon),
+      iconTheme: const IconThemeData(color: PaidaxColors.barIcon),
+      actionsIconTheme: const IconThemeData(color: PaidaxColors.barIcon),
       elevation: 0,
       scrolledUnderElevation: 0,
-      titleTextStyle: TextStyle(
-        color: PaidaxColors.barForeground,
+      titleTextStyle: _interStyle(
         fontSize: 16,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w600, // SemiBold
+        color: PaidaxColors.barForeground,
       ),
-      systemOverlayStyle: SystemUiOverlayStyle(
+      systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
       ),
@@ -217,11 +251,11 @@ ThemeData buildPaidaxTheme() {
       backgroundColor: PaidaxColors.bg,
       indicatorColor: PaidaxColors.primaryContainer,
       labelTextStyle: WidgetStateProperty.resolveWith(
-        (states) => TextStyle(
+        (states) => _interStyle(
           fontSize: 11,
           fontWeight: states.contains(WidgetState.selected)
-              ? FontWeight.w600
-              : FontWeight.w400,
+              ? FontWeight.w600 // SemiBold
+              : FontWeight.w400, // Regular
           color: states.contains(WidgetState.selected)
               ? PaidaxColors.primary
               : PaidaxColors.secondaryText,
@@ -230,14 +264,21 @@ ThemeData buildPaidaxTheme() {
     ),
 
     // ── TabBar ───────────────────────────────────────────────────────────
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: TabBarTheme(
       indicatorColor: PaidaxColors.primary,
       dividerColor: PaidaxColors.divider,
       labelColor: PaidaxColors.primaryText,
       unselectedLabelColor: PaidaxColors.secondaryText,
-      labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-      unselectedLabelStyle:
-          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+      labelStyle: _interStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600, // SemiBold
+        color: PaidaxColors.primaryText,
+      ),
+      unselectedLabelStyle: _interStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500, // Medium
+        color: PaidaxColors.secondaryText,
+      ),
     ),
 
     // ── Buttons ──────────────────────────────────────────────────────────
@@ -250,7 +291,11 @@ ThemeData buildPaidaxTheme() {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         minimumSize: const Size(double.infinity, 48),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        textStyle: _interStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w600, // SemiBold
+          color: PaidaxColors.onPrimaryText,
+        ),
       ),
     ),
 
@@ -264,7 +309,11 @@ ThemeData buildPaidaxTheme() {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         minimumSize: const Size(double.infinity, 48),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+        textStyle: _interStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w500, // Medium
+          color: PaidaxColors.primaryText,
+        ),
       ),
     ),
 
@@ -275,14 +324,22 @@ ThemeData buildPaidaxTheme() {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         minimumSize: const Size(double.infinity, 48),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        textStyle: _interStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w600, // SemiBold
+          color: PaidaxColors.primary,
+        ),
       ),
     ),
 
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: PaidaxColors.primary,
-        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        textStyle: _interStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600, // SemiBold
+          color: PaidaxColors.primary,
+        ),
       ),
     ),
 
@@ -300,20 +357,20 @@ ThemeData buildPaidaxTheme() {
       filled: true,
       fillColor: Colors.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      hintStyle: const TextStyle(
+      hintStyle: _interStyle(
         fontSize: 15,
+        fontWeight: FontWeight.w400, // Regular
         color: PaidaxColors.secondaryText,
-        fontWeight: FontWeight.w400,
       ),
-      labelStyle: const TextStyle(
+      labelStyle: _interStyle(
         fontSize: 15,
+        fontWeight: FontWeight.w400, // Regular
         color: PaidaxColors.secondaryText,
-        overflow: TextOverflow.visible,
       ),
-      floatingLabelStyle: const TextStyle(
+      floatingLabelStyle: _interStyle(
         fontSize: 13,
+        fontWeight: FontWeight.w500, // Medium
         color: PaidaxColors.primary,
-        fontWeight: FontWeight.w500,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -360,9 +417,9 @@ ThemeData buildPaidaxTheme() {
     chipTheme: ChipThemeData(
       backgroundColor: PaidaxColors.greyBg,
       selectedColor: PaidaxColors.primaryContainer,
-      labelStyle: const TextStyle(
+      labelStyle: _interStyle(
         fontSize: 12,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w500, // Medium
         color: PaidaxColors.primaryText,
       ),
       side: const BorderSide(color: PaidaxColors.divider, width: 1),
@@ -414,10 +471,10 @@ ThemeData buildPaidaxTheme() {
     // ── Snackbar ─────────────────────────────────────────────────────────
     snackBarTheme: SnackBarThemeData(
       backgroundColor: PaidaxColors.primaryText,
-      contentTextStyle: const TextStyle(
-        color: PaidaxColors.onPrimaryText,
+      contentTextStyle: _interStyle(
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w400, // Regular
+        color: PaidaxColors.onPrimaryText,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       behavior: SnackBarBehavior.floating,
@@ -444,15 +501,15 @@ ThemeData buildPaidaxTheme() {
       surfaceTintColor: Colors.transparent,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      titleTextStyle: const TextStyle(
-        color: PaidaxColors.primaryText,
+      titleTextStyle: _interStyle(
         fontSize: 17,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w700, // Bold
+        color: PaidaxColors.primaryText,
       ),
-      contentTextStyle: const TextStyle(
-        color: PaidaxColors.secondaryText,
+      contentTextStyle: _interStyle(
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w400, // Regular
+        color: PaidaxColors.secondaryText,
       ),
     ),
 
@@ -462,9 +519,10 @@ ThemeData buildPaidaxTheme() {
         color: PaidaxColors.primaryText.withOpacity(0.9),
         borderRadius: BorderRadius.circular(6),
       ),
-      textStyle: const TextStyle(
-        color: PaidaxColors.onPrimaryText,
+      textStyle: _interStyle(
         fontSize: 12,
+        fontWeight: FontWeight.w400, // Regular
+        color: PaidaxColors.onPrimaryText,
       ),
     ),
   );
@@ -476,80 +534,89 @@ TextTheme _buildTextTheme({
   required Color decorationColor,
 }) {
   return TextTheme(
-    displayLarge: TextStyle(
-        color: baseColor,
+    // Display — Bold
+    displayLarge: _interStyle(
         fontSize: 32,
         fontWeight: FontWeight.w700,
-        decorationColor: decorationColor),
-    displayMedium: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    displayMedium: _interStyle(
         fontSize: 28,
         fontWeight: FontWeight.w700,
-        decorationColor: decorationColor),
-    displaySmall: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    displaySmall: _interStyle(
         fontSize: 24,
         fontWeight: FontWeight.w700,
-        decorationColor: decorationColor),
-    headlineLarge: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+
+    // Headline — Bold / SemiBold
+    headlineLarge: _interStyle(
         fontSize: 22,
         fontWeight: FontWeight.w700,
-        decorationColor: decorationColor),
-    headlineMedium: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    headlineMedium: _interStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        decorationColor: decorationColor),
-    headlineSmall: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    headlineSmall: _interStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
-        decorationColor: decorationColor),
-    titleLarge: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+
+    // Title — Bold / SemiBold
+    titleLarge: _interStyle(
         fontSize: 17,
         fontWeight: FontWeight.w700,
-        decorationColor: decorationColor),
-    titleMedium: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    titleMedium: _interStyle(
         fontSize: 16,
         fontWeight: FontWeight.w600,
-        decorationColor: decorationColor),
-    titleSmall: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    titleSmall: _interStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
-        decorationColor: decorationColor),
-    bodyLarge: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+
+    // Body — Regular
+    bodyLarge: _interStyle(
         fontSize: 16,
         fontWeight: FontWeight.w400,
-        decorationColor: decorationColor),
-    bodyMedium: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    bodyMedium: _interStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        decorationColor: decorationColor),
-    bodySmall: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    bodySmall: _interStyle(
         fontSize: 12,
         fontWeight: FontWeight.w400,
-        decorationColor: decorationColor),
-    labelLarge: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+
+    // Label — SemiBold / Medium
+    labelLarge: _interStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
-        decorationColor: decorationColor),
-    labelMedium: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    labelMedium: _interStyle(
         fontSize: 12,
         fontWeight: FontWeight.w500,
-        decorationColor: decorationColor),
-    labelSmall: TextStyle(
         color: baseColor,
+        decorationColor: decorationColor),
+    labelSmall: _interStyle(
         fontSize: 11,
         fontWeight: FontWeight.w500,
+        color: baseColor,
         decorationColor: decorationColor),
   );
 }
