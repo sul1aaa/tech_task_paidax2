@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tech_task_paidax2/onboarding/presentation/widgets/budget_range_tile_widget.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class BudgetTile extends StatelessWidget {
-  final BudgetRange range;
+  final BudgetRangeModel range;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -36,7 +36,6 @@ class BudgetTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Labels
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +51,6 @@ class BudgetTile extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Radio circle
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               width: 24,

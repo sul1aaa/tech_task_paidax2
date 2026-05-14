@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/goal_grid_tile_widget.dart';
 
-class GoalOption {
-  final String id;
-  final String label;
-  final String icon;
-
-  const GoalOption({
-    required this.id,
-    required this.label,
-    required this.icon,
-  });
-}
-
 class GoalGrid extends StatelessWidget {
-  final List<GoalOption> options;
+  final List<GoalOptionModel> options;
   final Set<String> selectedIds;
   final ValueChanged<String> onToggle;
 

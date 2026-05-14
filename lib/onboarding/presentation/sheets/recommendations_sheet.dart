@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_back_button_widget.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/action_card_widget.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_skip_button_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class RecommendationsSheet extends StatelessWidget {
+  final StockRecommendationModel stock;
+  final ActionCardModel topUpCard;
+  final ActionCardModel watchlistCard;
+  final RecommendationsContent content;
   final VoidCallback onNext;
   final VoidCallback onBack;
   final VoidCallback onSkip;
 
   const RecommendationsSheet({
     super.key,
+    required this.stock,
+    required this.topUpCard,
+    required this.watchlistCard,
+    required this.content,
     required this.onNext,
     required this.onBack,
     required this.onSkip,
@@ -42,7 +51,7 @@ class RecommendationsSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 34),
               child: Row(
                 children: [
-                  Text('Подобрали для вас', style: theme.displaySmall),
+                  Text(content.title, style: theme.displaySmall),
                   const Spacer(),
                 ],
               ),
@@ -57,77 +66,73 @@ class RecommendationsSheet extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: PaidaxColors.border, width: 0.2),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: PaidaxColors.stockCardShadow,
-                              blurRadius: 30,
-                              spreadRadius: 0,
-                              offset: Offset(0, 8),
-                            ),
-                          ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: PaidaxColors.border, width: 0.2),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: PaidaxColors.stockCardShadow,
+                          blurRadius: 30,
+                          spreadRadius: 0,
+                          offset: Offset(0, 8),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 180,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/apple_image.png'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 180,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(stock.imagePath),
+                                fit: BoxFit.cover,
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(20),
-                                color: PaidaxColors.bg,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            color: PaidaxColors.bg,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text('Apple Inc.',
-                                            style: theme.headlineMedium),
-                                        Text('AAPL · NASDAQ',
-                                            style: theme.bodyMedium?.copyWith(
-                                                color:
-                                                    PaidaxColors.greyButton)),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text('\$189.43',
-                                            style: theme.headlineMedium),
-                                        Text('+1.24%',
-                                            style: theme.labelMedium?.copyWith(
-                                                color: PaidaxColors
-                                                    .chartPositive)),
-                                      ],
+                                    Text(stock.name,
+                                        style: theme.headlineMedium),
+                                    Text(
+                                      '${stock.ticker} · ${stock.exchange}',
+                                      style: theme.bodyMedium?.copyWith(
+                                          color: PaidaxColors.greyButton),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(stock.price,
+                                        style: theme.headlineMedium),
+                                    Text(
+                                      stock.changePercent,
+                                      style: theme.labelMedium?.copyWith(
+                                        color: stock.isPositive
+                                            ? PaidaxColors.chartPositive
+                                            : PaidaxColors.chartNegative,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -136,17 +141,15 @@ class RecommendationsSheet extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'На счёте пока пусто',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                content.emptyBalanceText,
+                style: theme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w500,
                     color: PaidaxColors.secondaryText),
               ),
             ),
             const SizedBox(height: 16),
             ActionCard(
-              title: 'Пополнить и купить',
-              subtitle: 'Через Kaspi – мгновенно',
-              iconPath: 'assets/images/icon_card.png',
+              data: topUpCard,
               backgroundColor: PaidaxColors.topUpCardBg,
               titleColor: PaidaxColors.onPrimaryText,
               subtitleColor: PaidaxColors.darkSecondaryText,
@@ -166,10 +169,8 @@ class RecommendationsSheet extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const ActionCard(
-              title: 'Хочу эту акцию',
-              subtitle: 'Сохраню и куплю позже',
-              iconPath: 'assets/images/icon_star.png',
+            ActionCard(
+              data: watchlistCard,
               backgroundColor: PaidaxColors.bg,
               titleColor: PaidaxColors.primaryText,
               subtitleColor: PaidaxColors.secondaryText,

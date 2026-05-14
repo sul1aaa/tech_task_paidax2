@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 
 class ActionCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String iconPath;
+  final ActionCardModel data;
   final Color backgroundColor;
   final Color titleColor;
   final Color subtitleColor;
@@ -12,9 +11,7 @@ class ActionCard extends StatelessWidget {
 
   const ActionCard({
     super.key,
-    required this.title,
-    required this.subtitle,
-    required this.iconPath,
+    required this.data,
     required this.backgroundColor,
     required this.titleColor,
     required this.subtitleColor,
@@ -41,12 +38,12 @@ class ActionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
+                Text(data.title,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
                         ?.copyWith(color: titleColor, letterSpacing: -0.31)),
-                Text(subtitle,
+                Text(data.subtitle,
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
@@ -57,7 +54,7 @@ class ActionCard extends StatelessWidget {
           SizedBox(
             height: 28,
             width: 28,
-            child: Image.asset(iconPath),
+            child: Image.asset(data.iconPath),
           ),
         ],
       ),

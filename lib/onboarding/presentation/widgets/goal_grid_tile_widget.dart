@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tech_task_paidax2/onboarding/presentation/widgets/goal_grid_card_widget.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart'; // ← updated import
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class GoalGridTile extends StatefulWidget {
-  final GoalOption option;
+  final GoalOptionModel option;
   final bool isSelected;
   final VoidCallback onTap;
 

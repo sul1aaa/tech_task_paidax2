@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tech_task_paidax2/onboarding/presentation/widgets/experience_level_tile_widget.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class ExperienceTile extends StatelessWidget {
-  final ExperienceLevel level;
+  final ExperienceLevelModel level;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -36,7 +36,6 @@ class ExperienceTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Icon
             Container(
               width: 40,
               height: 40,
@@ -45,11 +44,9 @@ class ExperienceTile extends StatelessWidget {
                 color: PaidaxColors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.asset(level.icon, color: PaidaxColors.primary),
+              child: Image.asset(level.iconPath, color: PaidaxColors.primary),
             ),
             const SizedBox(width: 20),
-
-            // Labels
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,10 +61,7 @@ class ExperienceTile extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(width: 12),
-
-            // Radio circle
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               width: 24,

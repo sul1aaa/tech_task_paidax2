@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_back_button_widget.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_skip_button_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
-
 import '../widgets/budget_range_tile_widget.dart';
 
 class BudgetSheet extends StatelessWidget {
+  final List<BudgetRangeModel> budgetRanges;
+  final BudgetContent content;
   final String? selectedId;
   final ValueChanged<String> onChanged;
   final VoidCallback onNext;
@@ -14,6 +16,8 @@ class BudgetSheet extends StatelessWidget {
 
   const BudgetSheet({
     super.key,
+    required this.budgetRanges,
+    required this.content,
     required this.selectedId,
     required this.onChanged,
     required this.onNext,
@@ -29,8 +33,7 @@ class BudgetSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24)
-              .copyWith(top: 16, bottom: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -42,7 +45,7 @@ class BudgetSheet extends StatelessWidget {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text('С какой суммы\nначнём?', style: theme.displayMedium),
+          child: Text(content.title, style: theme.displayMedium),
         ),
         const SizedBox(height: 4),
         Expanded(
@@ -52,11 +55,11 @@ class BudgetSheet extends StatelessWidget {
             child: Column(
               children: [
                 BudgetRangeSelector(
+                  budgetRanges: budgetRanges,
                   selectedId: selectedId,
                   onChanged: onChanged,
                 ),
                 const SizedBox(height: 12),
-                // Info note
                 Container(
                   decoration: BoxDecoration(
                     color: PaidaxColors.infoNoteBg,
@@ -68,15 +71,12 @@ class BudgetSheet extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(
-                          Icons.info_outline_rounded,
-                          size: 15,
-                          color: PaidaxColors.primary,
-                        ),
+                        const Icon(Icons.info_outline_rounded,
+                            size: 15, color: PaidaxColors.primary),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Мы подберём активы на основе вашего выбора.',
+                            content.infoNote,
                             style: theme.bodySmall
                                 ?.copyWith(color: PaidaxColors.secondaryText),
                           ),

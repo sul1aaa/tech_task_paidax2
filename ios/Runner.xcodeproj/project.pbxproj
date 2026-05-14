@@ -97,7 +97,6 @@
 				BC9C24C50179D0CB4F42AFC0 /* Pods-RunnerTests.release.xcconfig */,
 				82FAD7957FBCE3D1EA48D398 /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -478,7 +477,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.techTaskPaidax2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sultan.techTaskPaidax2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

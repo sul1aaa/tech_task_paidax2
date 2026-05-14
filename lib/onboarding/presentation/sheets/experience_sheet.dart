@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
 import 'package:tech_task_paidax2/onboarding/presentation/widgets/onboarding_skip_button_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 import '../widgets/experience_level_tile_widget.dart';
 
 class ExperienceSheet extends StatelessWidget {
-  final ExperienceLevel? selected;
-  final ValueChanged<ExperienceLevel> onChanged;
+  final ExperienceContent content;
+  final String? selected;
+  final ValueChanged<String> onChanged;
   final VoidCallback onNext;
   final VoidCallback onSkip;
 
   const ExperienceSheet({
     super.key,
+    required this.content,
     required this.selected,
     required this.onChanged,
     required this.onNext,
@@ -37,7 +40,7 @@ class ExperienceSheet extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Расскажите о себе',
+            content.title,
             textAlign: TextAlign.center,
             style: theme.displayMedium,
           ),
@@ -46,7 +49,7 @@ class ExperienceSheet extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Text(
-            'Ваш опыт поможет нам персонализировать инвестиционные рекомендации',
+            content.subtitle,
             textAlign: TextAlign.center,
             style: theme.bodyLarge?.copyWith(color: PaidaxColors.secondaryText),
           ),
@@ -57,9 +60,10 @@ class ExperienceSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             physics: const BouncingScrollPhysics(),
             child: ExperienceLevelSelector(
-              selected: selected,
-              onChanged: (level) {
-                onChanged(level);
+              levels: content.levels,
+              selectedId: selected,
+              onChanged: (id) {
+                onChanged(id);
                 onNext();
               },
             ),
