@@ -52,7 +52,6 @@ class OnboardingRepository {
             label: 'Разнообразие',
             icon: 'assets/images/icon_grid.png'),
       ],
-      // ── texts ──
       recommendationsContent: RecommendationsContent(
         title: 'Подобрали для вас',
         emptyBalanceText: 'На счёте пока пусто',

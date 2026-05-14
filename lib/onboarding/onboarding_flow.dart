@@ -38,7 +38,6 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
       create: (_) => OnboardingBloc()..add(FetchConfig()),
       child: BlocListener<OnboardingBloc, OnboardingState>(
         listenWhen: (previous, current) {
-          // ← добавь это
           if (previous is OnboardingLoaded && current is OnboardingLoaded) {
             return previous.currentStep != current.currentStep;
           }

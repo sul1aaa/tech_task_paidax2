@@ -173,7 +173,6 @@ class _FeaturePill extends StatelessWidget {
   }
 }
 
-/// The bottom sheet wrapper that hosts the full onboarding flow.
 class _OnboardingSheet extends StatelessWidget {
   const _OnboardingSheet();
 
@@ -201,7 +200,6 @@ class _OnboardingSheet extends StatelessWidget {
           ),
           const SizedBox(height: 8),
 
-          // The onboarding flow fills the rest
           const Expanded(
             child: OnboardingFlow(),
           ),
