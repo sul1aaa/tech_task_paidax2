@@ -18,38 +18,58 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GetOnboardingConfigResponse {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OnboardingConfigModel config) success,
+    required TResult Function(ExperienceContent data) successExperience,
+    required TResult Function(GoalsStepData data) successGoals,
+    required TResult Function(BudgetStepData data) successBudget,
+    required TResult Function(RecommendationsStepData data)
+        successRecommendations,
     required TResult Function() serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OnboardingConfigModel config)? success,
+    TResult? Function(ExperienceContent data)? successExperience,
+    TResult? Function(GoalsStepData data)? successGoals,
+    TResult? Function(BudgetStepData data)? successBudget,
+    TResult? Function(RecommendationsStepData data)? successRecommendations,
     TResult? Function()? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OnboardingConfigModel config)? success,
+    TResult Function(ExperienceContent data)? successExperience,
+    TResult Function(GoalsStepData data)? successGoals,
+    TResult Function(BudgetStepData data)? successBudget,
+    TResult Function(RecommendationsStepData data)? successRecommendations,
     TResult Function()? serverError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessExperience value) successExperience,
+    required TResult Function(_SuccessGoals value) successGoals,
+    required TResult Function(_SuccessBudget value) successBudget,
+    required TResult Function(_SuccessRecommendations value)
+        successRecommendations,
     required TResult Function(_ServerError value) serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessExperience value)? successExperience,
+    TResult? Function(_SuccessGoals value)? successGoals,
+    TResult? Function(_SuccessBudget value)? successBudget,
+    TResult? Function(_SuccessRecommendations value)? successRecommendations,
     TResult? Function(_ServerError value)? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessExperience value)? successExperience,
+    TResult Function(_SuccessGoals value)? successGoals,
+    TResult Function(_SuccessBudget value)? successBudget,
+    TResult Function(_SuccessRecommendations value)? successRecommendations,
     TResult Function(_ServerError value)? serverError,
     required TResult orElse(),
   }) =>
@@ -81,22 +101,23 @@ class _$GetOnboardingConfigResponseCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$SuccessExperienceImplCopyWith<$Res> {
+  factory _$$SuccessExperienceImplCopyWith(_$SuccessExperienceImpl value,
+          $Res Function(_$SuccessExperienceImpl) then) =
+      __$$SuccessExperienceImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({OnboardingConfigModel config});
+  $Res call({ExperienceContent data});
 
-  $OnboardingConfigModelCopyWith<$Res> get config;
+  $ExperienceContentCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$GetOnboardingConfigResponseCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$SuccessExperienceImplCopyWithImpl<$Res>
+    extends _$GetOnboardingConfigResponseCopyWithImpl<$Res,
+        _$SuccessExperienceImpl>
+    implements _$$SuccessExperienceImplCopyWith<$Res> {
+  __$$SuccessExperienceImplCopyWithImpl(_$SuccessExperienceImpl _value,
+      $Res Function(_$SuccessExperienceImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of GetOnboardingConfigResponse
@@ -104,13 +125,13 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? config = null,
+    Object? data = null,
   }) {
-    return _then(_$SuccessImpl(
-      null == config
-          ? _value.config
-          : config // ignore: cast_nullable_to_non_nullable
-              as OnboardingConfigModel,
+    return _then(_$SuccessExperienceImpl(
+      null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ExperienceContent,
     ));
   }
 
@@ -118,72 +139,83 @@ class __$$SuccessImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $OnboardingConfigModelCopyWith<$Res> get config {
-    return $OnboardingConfigModelCopyWith<$Res>(_value.config, (value) {
-      return _then(_value.copyWith(config: value));
+  $ExperienceContentCopyWith<$Res> get data {
+    return $ExperienceContentCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
     });
   }
 }
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.config);
+class _$SuccessExperienceImpl implements _SuccessExperience {
+  const _$SuccessExperienceImpl(this.data);
 
   @override
-  final OnboardingConfigModel config;
+  final ExperienceContent data;
 
   @override
   String toString() {
-    return 'GetOnboardingConfigResponse.success(config: $config)';
+    return 'GetOnboardingConfigResponse.successExperience(data: $data)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
-            (identical(other.config, config) || other.config == config));
+            other is _$SuccessExperienceImpl &&
+            (identical(other.data, data) || other.data == data));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, config);
+  int get hashCode => Object.hash(runtimeType, data);
 
   /// Create a copy of GetOnboardingConfigResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+  _$$SuccessExperienceImplCopyWith<_$SuccessExperienceImpl> get copyWith =>
+      __$$SuccessExperienceImplCopyWithImpl<_$SuccessExperienceImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OnboardingConfigModel config) success,
+    required TResult Function(ExperienceContent data) successExperience,
+    required TResult Function(GoalsStepData data) successGoals,
+    required TResult Function(BudgetStepData data) successBudget,
+    required TResult Function(RecommendationsStepData data)
+        successRecommendations,
     required TResult Function() serverError,
   }) {
-    return success(config);
+    return successExperience(data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OnboardingConfigModel config)? success,
+    TResult? Function(ExperienceContent data)? successExperience,
+    TResult? Function(GoalsStepData data)? successGoals,
+    TResult? Function(BudgetStepData data)? successBudget,
+    TResult? Function(RecommendationsStepData data)? successRecommendations,
     TResult? Function()? serverError,
   }) {
-    return success?.call(config);
+    return successExperience?.call(data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OnboardingConfigModel config)? success,
+    TResult Function(ExperienceContent data)? successExperience,
+    TResult Function(GoalsStepData data)? successGoals,
+    TResult Function(BudgetStepData data)? successBudget,
+    TResult Function(RecommendationsStepData data)? successRecommendations,
     TResult Function()? serverError,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(config);
+    if (successExperience != null) {
+      return successExperience(data);
     }
     return orElse();
   }
@@ -191,45 +223,577 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessExperience value) successExperience,
+    required TResult Function(_SuccessGoals value) successGoals,
+    required TResult Function(_SuccessBudget value) successBudget,
+    required TResult Function(_SuccessRecommendations value)
+        successRecommendations,
     required TResult Function(_ServerError value) serverError,
   }) {
-    return success(this);
+    return successExperience(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessExperience value)? successExperience,
+    TResult? Function(_SuccessGoals value)? successGoals,
+    TResult? Function(_SuccessBudget value)? successBudget,
+    TResult? Function(_SuccessRecommendations value)? successRecommendations,
     TResult? Function(_ServerError value)? serverError,
   }) {
-    return success?.call(this);
+    return successExperience?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessExperience value)? successExperience,
+    TResult Function(_SuccessGoals value)? successGoals,
+    TResult Function(_SuccessBudget value)? successBudget,
+    TResult Function(_SuccessRecommendations value)? successRecommendations,
     TResult Function(_ServerError value)? serverError,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(this);
+    if (successExperience != null) {
+      return successExperience(this);
     }
     return orElse();
   }
 }
 
-abstract class _Success implements GetOnboardingConfigResponse {
-  const factory _Success(final OnboardingConfigModel config) = _$SuccessImpl;
+abstract class _SuccessExperience implements GetOnboardingConfigResponse {
+  const factory _SuccessExperience(final ExperienceContent data) =
+      _$SuccessExperienceImpl;
 
-  OnboardingConfigModel get config;
+  ExperienceContent get data;
 
   /// Create a copy of GetOnboardingConfigResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+  _$$SuccessExperienceImplCopyWith<_$SuccessExperienceImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessGoalsImplCopyWith<$Res> {
+  factory _$$SuccessGoalsImplCopyWith(
+          _$SuccessGoalsImpl value, $Res Function(_$SuccessGoalsImpl) then) =
+      __$$SuccessGoalsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GoalsStepData data});
+
+  $GoalsStepDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$$SuccessGoalsImplCopyWithImpl<$Res>
+    extends _$GetOnboardingConfigResponseCopyWithImpl<$Res, _$SuccessGoalsImpl>
+    implements _$$SuccessGoalsImplCopyWith<$Res> {
+  __$$SuccessGoalsImplCopyWithImpl(
+      _$SuccessGoalsImpl _value, $Res Function(_$SuccessGoalsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$SuccessGoalsImpl(
+      null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as GoalsStepData,
+    ));
+  }
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GoalsStepDataCopyWith<$Res> get data {
+    return $GoalsStepDataCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SuccessGoalsImpl implements _SuccessGoals {
+  const _$SuccessGoalsImpl(this.data);
+
+  @override
+  final GoalsStepData data;
+
+  @override
+  String toString() {
+    return 'GetOnboardingConfigResponse.successGoals(data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessGoalsImpl &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessGoalsImplCopyWith<_$SuccessGoalsImpl> get copyWith =>
+      __$$SuccessGoalsImplCopyWithImpl<_$SuccessGoalsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ExperienceContent data) successExperience,
+    required TResult Function(GoalsStepData data) successGoals,
+    required TResult Function(BudgetStepData data) successBudget,
+    required TResult Function(RecommendationsStepData data)
+        successRecommendations,
+    required TResult Function() serverError,
+  }) {
+    return successGoals(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ExperienceContent data)? successExperience,
+    TResult? Function(GoalsStepData data)? successGoals,
+    TResult? Function(BudgetStepData data)? successBudget,
+    TResult? Function(RecommendationsStepData data)? successRecommendations,
+    TResult? Function()? serverError,
+  }) {
+    return successGoals?.call(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ExperienceContent data)? successExperience,
+    TResult Function(GoalsStepData data)? successGoals,
+    TResult Function(BudgetStepData data)? successBudget,
+    TResult Function(RecommendationsStepData data)? successRecommendations,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (successGoals != null) {
+      return successGoals(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SuccessExperience value) successExperience,
+    required TResult Function(_SuccessGoals value) successGoals,
+    required TResult Function(_SuccessBudget value) successBudget,
+    required TResult Function(_SuccessRecommendations value)
+        successRecommendations,
+    required TResult Function(_ServerError value) serverError,
+  }) {
+    return successGoals(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SuccessExperience value)? successExperience,
+    TResult? Function(_SuccessGoals value)? successGoals,
+    TResult? Function(_SuccessBudget value)? successBudget,
+    TResult? Function(_SuccessRecommendations value)? successRecommendations,
+    TResult? Function(_ServerError value)? serverError,
+  }) {
+    return successGoals?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SuccessExperience value)? successExperience,
+    TResult Function(_SuccessGoals value)? successGoals,
+    TResult Function(_SuccessBudget value)? successBudget,
+    TResult Function(_SuccessRecommendations value)? successRecommendations,
+    TResult Function(_ServerError value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (successGoals != null) {
+      return successGoals(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessGoals implements GetOnboardingConfigResponse {
+  const factory _SuccessGoals(final GoalsStepData data) = _$SuccessGoalsImpl;
+
+  GoalsStepData get data;
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuccessGoalsImplCopyWith<_$SuccessGoalsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessBudgetImplCopyWith<$Res> {
+  factory _$$SuccessBudgetImplCopyWith(
+          _$SuccessBudgetImpl value, $Res Function(_$SuccessBudgetImpl) then) =
+      __$$SuccessBudgetImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BudgetStepData data});
+
+  $BudgetStepDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$$SuccessBudgetImplCopyWithImpl<$Res>
+    extends _$GetOnboardingConfigResponseCopyWithImpl<$Res, _$SuccessBudgetImpl>
+    implements _$$SuccessBudgetImplCopyWith<$Res> {
+  __$$SuccessBudgetImplCopyWithImpl(
+      _$SuccessBudgetImpl _value, $Res Function(_$SuccessBudgetImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$SuccessBudgetImpl(
+      null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as BudgetStepData,
+    ));
+  }
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BudgetStepDataCopyWith<$Res> get data {
+    return $BudgetStepDataCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SuccessBudgetImpl implements _SuccessBudget {
+  const _$SuccessBudgetImpl(this.data);
+
+  @override
+  final BudgetStepData data;
+
+  @override
+  String toString() {
+    return 'GetOnboardingConfigResponse.successBudget(data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessBudgetImpl &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessBudgetImplCopyWith<_$SuccessBudgetImpl> get copyWith =>
+      __$$SuccessBudgetImplCopyWithImpl<_$SuccessBudgetImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ExperienceContent data) successExperience,
+    required TResult Function(GoalsStepData data) successGoals,
+    required TResult Function(BudgetStepData data) successBudget,
+    required TResult Function(RecommendationsStepData data)
+        successRecommendations,
+    required TResult Function() serverError,
+  }) {
+    return successBudget(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ExperienceContent data)? successExperience,
+    TResult? Function(GoalsStepData data)? successGoals,
+    TResult? Function(BudgetStepData data)? successBudget,
+    TResult? Function(RecommendationsStepData data)? successRecommendations,
+    TResult? Function()? serverError,
+  }) {
+    return successBudget?.call(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ExperienceContent data)? successExperience,
+    TResult Function(GoalsStepData data)? successGoals,
+    TResult Function(BudgetStepData data)? successBudget,
+    TResult Function(RecommendationsStepData data)? successRecommendations,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (successBudget != null) {
+      return successBudget(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SuccessExperience value) successExperience,
+    required TResult Function(_SuccessGoals value) successGoals,
+    required TResult Function(_SuccessBudget value) successBudget,
+    required TResult Function(_SuccessRecommendations value)
+        successRecommendations,
+    required TResult Function(_ServerError value) serverError,
+  }) {
+    return successBudget(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SuccessExperience value)? successExperience,
+    TResult? Function(_SuccessGoals value)? successGoals,
+    TResult? Function(_SuccessBudget value)? successBudget,
+    TResult? Function(_SuccessRecommendations value)? successRecommendations,
+    TResult? Function(_ServerError value)? serverError,
+  }) {
+    return successBudget?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SuccessExperience value)? successExperience,
+    TResult Function(_SuccessGoals value)? successGoals,
+    TResult Function(_SuccessBudget value)? successBudget,
+    TResult Function(_SuccessRecommendations value)? successRecommendations,
+    TResult Function(_ServerError value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (successBudget != null) {
+      return successBudget(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessBudget implements GetOnboardingConfigResponse {
+  const factory _SuccessBudget(final BudgetStepData data) = _$SuccessBudgetImpl;
+
+  BudgetStepData get data;
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuccessBudgetImplCopyWith<_$SuccessBudgetImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessRecommendationsImplCopyWith<$Res> {
+  factory _$$SuccessRecommendationsImplCopyWith(
+          _$SuccessRecommendationsImpl value,
+          $Res Function(_$SuccessRecommendationsImpl) then) =
+      __$$SuccessRecommendationsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({RecommendationsStepData data});
+
+  $RecommendationsStepDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$$SuccessRecommendationsImplCopyWithImpl<$Res>
+    extends _$GetOnboardingConfigResponseCopyWithImpl<$Res,
+        _$SuccessRecommendationsImpl>
+    implements _$$SuccessRecommendationsImplCopyWith<$Res> {
+  __$$SuccessRecommendationsImplCopyWithImpl(
+      _$SuccessRecommendationsImpl _value,
+      $Res Function(_$SuccessRecommendationsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$SuccessRecommendationsImpl(
+      null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as RecommendationsStepData,
+    ));
+  }
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RecommendationsStepDataCopyWith<$Res> get data {
+    return $RecommendationsStepDataCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SuccessRecommendationsImpl implements _SuccessRecommendations {
+  const _$SuccessRecommendationsImpl(this.data);
+
+  @override
+  final RecommendationsStepData data;
+
+  @override
+  String toString() {
+    return 'GetOnboardingConfigResponse.successRecommendations(data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessRecommendationsImpl &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessRecommendationsImplCopyWith<_$SuccessRecommendationsImpl>
+      get copyWith => __$$SuccessRecommendationsImplCopyWithImpl<
+          _$SuccessRecommendationsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ExperienceContent data) successExperience,
+    required TResult Function(GoalsStepData data) successGoals,
+    required TResult Function(BudgetStepData data) successBudget,
+    required TResult Function(RecommendationsStepData data)
+        successRecommendations,
+    required TResult Function() serverError,
+  }) {
+    return successRecommendations(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ExperienceContent data)? successExperience,
+    TResult? Function(GoalsStepData data)? successGoals,
+    TResult? Function(BudgetStepData data)? successBudget,
+    TResult? Function(RecommendationsStepData data)? successRecommendations,
+    TResult? Function()? serverError,
+  }) {
+    return successRecommendations?.call(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ExperienceContent data)? successExperience,
+    TResult Function(GoalsStepData data)? successGoals,
+    TResult Function(BudgetStepData data)? successBudget,
+    TResult Function(RecommendationsStepData data)? successRecommendations,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (successRecommendations != null) {
+      return successRecommendations(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SuccessExperience value) successExperience,
+    required TResult Function(_SuccessGoals value) successGoals,
+    required TResult Function(_SuccessBudget value) successBudget,
+    required TResult Function(_SuccessRecommendations value)
+        successRecommendations,
+    required TResult Function(_ServerError value) serverError,
+  }) {
+    return successRecommendations(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SuccessExperience value)? successExperience,
+    TResult? Function(_SuccessGoals value)? successGoals,
+    TResult? Function(_SuccessBudget value)? successBudget,
+    TResult? Function(_SuccessRecommendations value)? successRecommendations,
+    TResult? Function(_ServerError value)? serverError,
+  }) {
+    return successRecommendations?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SuccessExperience value)? successExperience,
+    TResult Function(_SuccessGoals value)? successGoals,
+    TResult Function(_SuccessBudget value)? successBudget,
+    TResult Function(_SuccessRecommendations value)? successRecommendations,
+    TResult Function(_ServerError value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (successRecommendations != null) {
+      return successRecommendations(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessRecommendations implements GetOnboardingConfigResponse {
+  const factory _SuccessRecommendations(final RecommendationsStepData data) =
+      _$SuccessRecommendationsImpl;
+
+  RecommendationsStepData get data;
+
+  /// Create a copy of GetOnboardingConfigResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuccessRecommendationsImplCopyWith<_$SuccessRecommendationsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -273,7 +837,11 @@ class _$ServerErrorImpl implements _ServerError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OnboardingConfigModel config) success,
+    required TResult Function(ExperienceContent data) successExperience,
+    required TResult Function(GoalsStepData data) successGoals,
+    required TResult Function(BudgetStepData data) successBudget,
+    required TResult Function(RecommendationsStepData data)
+        successRecommendations,
     required TResult Function() serverError,
   }) {
     return serverError();
@@ -282,7 +850,10 @@ class _$ServerErrorImpl implements _ServerError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OnboardingConfigModel config)? success,
+    TResult? Function(ExperienceContent data)? successExperience,
+    TResult? Function(GoalsStepData data)? successGoals,
+    TResult? Function(BudgetStepData data)? successBudget,
+    TResult? Function(RecommendationsStepData data)? successRecommendations,
     TResult? Function()? serverError,
   }) {
     return serverError?.call();
@@ -291,7 +862,10 @@ class _$ServerErrorImpl implements _ServerError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OnboardingConfigModel config)? success,
+    TResult Function(ExperienceContent data)? successExperience,
+    TResult Function(GoalsStepData data)? successGoals,
+    TResult Function(BudgetStepData data)? successBudget,
+    TResult Function(RecommendationsStepData data)? successRecommendations,
     TResult Function()? serverError,
     required TResult orElse(),
   }) {
@@ -304,7 +878,11 @@ class _$ServerErrorImpl implements _ServerError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessExperience value) successExperience,
+    required TResult Function(_SuccessGoals value) successGoals,
+    required TResult Function(_SuccessBudget value) successBudget,
+    required TResult Function(_SuccessRecommendations value)
+        successRecommendations,
     required TResult Function(_ServerError value) serverError,
   }) {
     return serverError(this);
@@ -313,7 +891,10 @@ class _$ServerErrorImpl implements _ServerError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessExperience value)? successExperience,
+    TResult? Function(_SuccessGoals value)? successGoals,
+    TResult? Function(_SuccessBudget value)? successBudget,
+    TResult? Function(_SuccessRecommendations value)? successRecommendations,
     TResult? Function(_ServerError value)? serverError,
   }) {
     return serverError?.call(this);
@@ -322,7 +903,10 @@ class _$ServerErrorImpl implements _ServerError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessExperience value)? successExperience,
+    TResult Function(_SuccessGoals value)? successGoals,
+    TResult Function(_SuccessBudget value)? successBudget,
+    TResult Function(_SuccessRecommendations value)? successRecommendations,
     TResult Function(_ServerError value)? serverError,
     required TResult orElse(),
   }) {

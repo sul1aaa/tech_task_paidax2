@@ -10,9 +10,9 @@ class BudgetSheet extends StatelessWidget {
   final BudgetContent content;
   final String? selectedId;
   final ValueChanged<String> onChanged;
-  final VoidCallback onNext;
-  final VoidCallback onBack;
-  final VoidCallback onSkip;
+  final VoidCallback? onNext;
+  final VoidCallback? onBack;
+  final VoidCallback? onSkip;
 
   const BudgetSheet({
     super.key,

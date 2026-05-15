@@ -9,8 +9,8 @@ class ExperienceSheet extends StatelessWidget {
   final ExperienceContent content;
   final String? selected;
   final ValueChanged<String> onChanged;
-  final VoidCallback onNext;
-  final VoidCallback onSkip;
+  final VoidCallback? onNext;
+  final VoidCallback? onSkip;
 
   const ExperienceSheet({
     super.key,
@@ -64,7 +64,7 @@ class ExperienceSheet extends StatelessWidget {
               selectedId: selected,
               onChanged: (id) {
                 onChanged(id);
-                onNext();
+                onNext?.call();
               },
             ),
           ),

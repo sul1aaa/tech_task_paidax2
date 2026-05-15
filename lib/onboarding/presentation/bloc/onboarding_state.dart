@@ -1,10 +1,17 @@
 part of 'onboarding_bloc.dart';
 
-abstract class OnboardingState {}
+abstract class OnboardingState {
+  const OnboardingState();
+}
 
 class OnboardingInitial extends OnboardingState {}
 
 class OnboardingLoading extends OnboardingState {}
+
+class OnboardingError extends OnboardingState {
+  final String message;
+  const OnboardingError(this.message);
+}
 
 class OnboardingLoaded extends OnboardingState {
   final OnboardingConfigModel config;
@@ -12,14 +19,34 @@ class OnboardingLoaded extends OnboardingState {
   final Set<String> selectedGoalIds;
   final String? selectedBudgetId;
   final int currentStep;
+  final bool stepLoading;
 
-  OnboardingLoaded({
+  const OnboardingLoaded({
     required this.config,
-    required this.selectedExperienceId,
+    this.selectedExperienceId,
     required this.selectedGoalIds,
-    required this.selectedBudgetId,
+    this.selectedBudgetId,
     required this.currentStep,
+    this.stepLoading = false,
   });
+
+  OnboardingLoaded copyWith({
+    OnboardingConfigModel? config,
+    String? selectedExperienceId,
+    Set<String>? selectedGoalIds,
+    String? selectedBudgetId,
+    int? currentStep,
+    bool? stepLoading,
+  }) {
+    return OnboardingLoaded(
+      config: config ?? this.config,
+      selectedExperienceId: selectedExperienceId ?? this.selectedExperienceId,
+      selectedGoalIds: selectedGoalIds ?? this.selectedGoalIds,
+      selectedBudgetId: selectedBudgetId ?? this.selectedBudgetId,
+      currentStep: currentStep ?? this.currentStep,
+      stepLoading: stepLoading ?? this.stepLoading,
+    );
+  }
 }
 
 class OnboardingCompleted extends OnboardingState {
@@ -29,16 +56,11 @@ class OnboardingCompleted extends OnboardingState {
   final String? selectedBudgetId;
   final bool skipped;
 
-  OnboardingCompleted({
+  const OnboardingCompleted({
     required this.config,
-    required this.selectedExperienceId,
+    this.selectedExperienceId,
     required this.selectedGoalIds,
-    required this.selectedBudgetId,
-    this.skipped = false,
+    this.selectedBudgetId,
+    required this.skipped,
   });
-}
-
-class OnboardingError extends OnboardingState {
-  final String message;
-  OnboardingError(this.message);
 }

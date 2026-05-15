@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tech_task_paidax2/core/network/api_response.dart';
 import 'package:tech_task_paidax2/onboarding/data/models/onboarding_models.dart';
+import 'package:tech_task_paidax2/onboarding/data/models/get_onboarding_config_response.dart';
 import 'package:tech_task_paidax2/onboarding/data/repositories/onboarding_repository.dart';
 
 part 'onboarding_event.dart';
@@ -23,30 +25,38 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     on<SkipOnboarding>(_onSkipOnboarding);
   }
 
+  // ─── Step 0: load experience on open ────────────────────────────────────────
+
   Future<void> _onFetchConfig(
     FetchConfig event,
     Emitter<OnboardingState> emit,
   ) async {
     emit(OnboardingLoading());
 
-    final result = await _repository.getOnboardingConfig();
+    final result = await _repository.getExperienceConfig();
 
     result.when(
-      noInternet: () => emit(OnboardingError('Нет интернета')),
+      noInternet: () => emit(const OnboardingError('Нет интернета')),
       value: (response) {
         response.when(
-          serverError: () => emit(OnboardingError('Ошибка сервера')),
-          success: (config) => emit(OnboardingLoaded(
-            config: config,
+          serverError: () => emit(const OnboardingError('Ошибка сервера')),
+          successExperience: (data) => emit(OnboardingLoaded(
+            config: OnboardingConfigModel(experienceContent: data),
             selectedExperienceId: null,
             selectedGoalIds: {},
             selectedBudgetId: null,
             currentStep: 0,
+            stepLoading: false,
           )),
+          successGoals: (_) {},
+          successBudget: (_) {},
+          successRecommendations: (_) {},
         );
       },
     );
   }
+
+  // ─── Selection handlers ──────────────────────────────────────────────────────
 
   void _onSelectExperience(
     SelectExperience event,
@@ -54,13 +64,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   ) {
     if (state is! OnboardingLoaded) return;
     final current = state as OnboardingLoaded;
-    emit(OnboardingLoaded(
-      config: current.config,
-      selectedExperienceId: event.experienceId,
-      selectedGoalIds: current.selectedGoalIds,
-      selectedBudgetId: current.selectedBudgetId,
-      currentStep: current.currentStep,
-    ));
+    emit(current.copyWith(selectedExperienceId: event.experienceId));
   }
 
   void _onToggleGoal(
@@ -75,14 +79,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     } else {
       updatedGoals.add(event.goalId);
     }
-
-    emit(OnboardingLoaded(
-      config: current.config,
-      selectedExperienceId: current.selectedExperienceId,
-      selectedGoalIds: updatedGoals,
-      selectedBudgetId: current.selectedBudgetId,
-      currentStep: current.currentStep,
-    ));
+    emit(current.copyWith(selectedGoalIds: updatedGoals));
   }
 
   void _onSelectBudget(
@@ -91,29 +88,73 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   ) {
     if (state is! OnboardingLoaded) return;
     final current = state as OnboardingLoaded;
-    emit(OnboardingLoaded(
-      config: current.config,
-      selectedExperienceId: current.selectedExperienceId,
-      selectedGoalIds: current.selectedGoalIds,
-      selectedBudgetId: event.budgetId,
-      currentStep: current.currentStep,
-    ));
+    emit(current.copyWith(selectedBudgetId: event.budgetId));
   }
 
-  void _onNextStep(
+  // ─── Navigation ─────────────────────────────────────────────────────────────
+
+  Future<void> _onNextStep(
     NextStep event,
     Emitter<OnboardingState> emit,
-  ) {
+  ) async {
     if (state is! OnboardingLoaded) return;
     final current = state as OnboardingLoaded;
     if (current.currentStep >= _totalSteps - 1) return;
-    emit(OnboardingLoaded(
-      config: current.config,
-      selectedExperienceId: current.selectedExperienceId,
-      selectedGoalIds: current.selectedGoalIds,
-      selectedBudgetId: current.selectedBudgetId,
-      currentStep: current.currentStep + 1,
-    ));
+
+    final nextStep = current.currentStep + 1;
+
+    emit(current.copyWith(stepLoading: true));
+
+    ApiResponse<GetOnboardingConfigResponse> result;
+    switch (nextStep) {
+      case 1:
+        result = await _repository.getGoalsConfig();
+        break;
+      case 2:
+        result = await _repository.getBudgetConfig();
+        break;
+      case 3:
+        result = await _repository.getRecommendationsConfig();
+        break;
+      default:
+        return;
+    }
+
+    result.when(
+      noInternet: () => emit(const OnboardingError('Нет интернета')),
+      value: (response) {
+        response.when(
+          serverError: () => emit(const OnboardingError('Ошибка сервера')),
+          successExperience: (_) {},
+          successGoals: (data) => emit(current.copyWith(
+            config: current.config.copyWith(
+              goalsContent: data.content,
+              goals: data.goals,
+            ),
+            currentStep: nextStep,
+            stepLoading: false,
+          )),
+          successBudget: (data) => emit(current.copyWith(
+            config: current.config.copyWith(
+              budgetContent: data.content,
+              budgetRanges: data.budgetRanges,
+            ),
+            currentStep: nextStep,
+            stepLoading: false,
+          )),
+          successRecommendations: (data) => emit(current.copyWith(
+            config: current.config.copyWith(
+              recommendationsContent: data.content,
+              stock: data.stock,
+              topUpCard: data.topUpCard,
+              watchlistCard: data.watchlistCard,
+            ),
+            currentStep: nextStep,
+            stepLoading: false,
+          )),
+        );
+      },
+    );
   }
 
   void _onPreviousStep(
@@ -123,14 +164,10 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     if (state is! OnboardingLoaded) return;
     final current = state as OnboardingLoaded;
     if (current.currentStep <= 0) return;
-    emit(OnboardingLoaded(
-      config: current.config,
-      selectedExperienceId: current.selectedExperienceId,
-      selectedGoalIds: current.selectedGoalIds,
-      selectedBudgetId: current.selectedBudgetId,
-      currentStep: current.currentStep - 1,
-    ));
+    emit(current.copyWith(currentStep: current.currentStep - 1));
   }
+
+  // ─── Finish / Skip ───────────────────────────────────────────────────────────
 
   void _onFinishOnboarding(
     FinishOnboarding event,

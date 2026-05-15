@@ -10,9 +10,9 @@ class RecommendationsSheet extends StatelessWidget {
   final ActionCardModel topUpCard;
   final ActionCardModel watchlistCard;
   final RecommendationsContent content;
-  final VoidCallback onNext;
-  final VoidCallback onBack;
-  final VoidCallback onSkip;
+  final VoidCallback? onNext;
+  final VoidCallback? onBack;
+  final VoidCallback? onSkip;
 
   const RecommendationsSheet({
     super.key,

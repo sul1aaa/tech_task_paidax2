@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class OnboardingSkipButton extends StatelessWidget {
-  final VoidCallback onSkip;
+  final VoidCallback? onSkip;
 
   const OnboardingSkipButton({
     super.key,

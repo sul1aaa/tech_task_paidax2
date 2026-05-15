@@ -1785,16 +1785,20 @@ OnboardingConfigModel _$OnboardingConfigModelFromJson(
 
 /// @nodoc
 mixin _$OnboardingConfigModel {
-  StockRecommendationModel get stock => throw _privateConstructorUsedError;
-  ActionCardModel get topUpCard => throw _privateConstructorUsedError;
-  ActionCardModel get watchlistCard => throw _privateConstructorUsedError;
-  List<BudgetRangeModel> get budgetRanges => throw _privateConstructorUsedError;
-  List<GoalOptionModel> get goals => throw _privateConstructorUsedError;
-  RecommendationsContent get recommendationsContent =>
+// Step 0 — грузится при открытии, всегда есть
+  ExperienceContent get experienceContent =>
+      throw _privateConstructorUsedError; // Step 1 — грузится при переходе на goals
+  GoalsContent? get goalsContent => throw _privateConstructorUsedError;
+  List<GoalOptionModel> get goals =>
+      throw _privateConstructorUsedError; // Step 2 — грузится при переходе на budget
+  BudgetContent? get budgetContent => throw _privateConstructorUsedError;
+  List<BudgetRangeModel> get budgetRanges =>
+      throw _privateConstructorUsedError; // Step 3 — грузится при переходе на recommendations
+  RecommendationsContent? get recommendationsContent =>
       throw _privateConstructorUsedError;
-  BudgetContent get budgetContent => throw _privateConstructorUsedError;
-  ExperienceContent get experienceContent => throw _privateConstructorUsedError;
-  GoalsContent get goalsContent => throw _privateConstructorUsedError;
+  StockRecommendationModel? get stock => throw _privateConstructorUsedError;
+  ActionCardModel? get topUpCard => throw _privateConstructorUsedError;
+  ActionCardModel? get watchlistCard => throw _privateConstructorUsedError;
 
   /// Serializes this OnboardingConfigModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1813,23 +1817,23 @@ abstract class $OnboardingConfigModelCopyWith<$Res> {
       _$OnboardingConfigModelCopyWithImpl<$Res, OnboardingConfigModel>;
   @useResult
   $Res call(
-      {StockRecommendationModel stock,
-      ActionCardModel topUpCard,
-      ActionCardModel watchlistCard,
-      List<BudgetRangeModel> budgetRanges,
+      {ExperienceContent experienceContent,
+      GoalsContent? goalsContent,
       List<GoalOptionModel> goals,
-      RecommendationsContent recommendationsContent,
-      BudgetContent budgetContent,
-      ExperienceContent experienceContent,
-      GoalsContent goalsContent});
+      BudgetContent? budgetContent,
+      List<BudgetRangeModel> budgetRanges,
+      RecommendationsContent? recommendationsContent,
+      StockRecommendationModel? stock,
+      ActionCardModel? topUpCard,
+      ActionCardModel? watchlistCard});
 
-  $StockRecommendationModelCopyWith<$Res> get stock;
-  $ActionCardModelCopyWith<$Res> get topUpCard;
-  $ActionCardModelCopyWith<$Res> get watchlistCard;
-  $RecommendationsContentCopyWith<$Res> get recommendationsContent;
-  $BudgetContentCopyWith<$Res> get budgetContent;
   $ExperienceContentCopyWith<$Res> get experienceContent;
-  $GoalsContentCopyWith<$Res> get goalsContent;
+  $GoalsContentCopyWith<$Res>? get goalsContent;
+  $BudgetContentCopyWith<$Res>? get budgetContent;
+  $RecommendationsContentCopyWith<$Res>? get recommendationsContent;
+  $StockRecommendationModelCopyWith<$Res>? get stock;
+  $ActionCardModelCopyWith<$Res>? get topUpCard;
+  $ActionCardModelCopyWith<$Res>? get watchlistCard;
 }
 
 /// @nodoc
@@ -1848,105 +1852,54 @@ class _$OnboardingConfigModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stock = null,
-    Object? topUpCard = null,
-    Object? watchlistCard = null,
-    Object? budgetRanges = null,
-    Object? goals = null,
-    Object? recommendationsContent = null,
-    Object? budgetContent = null,
     Object? experienceContent = null,
-    Object? goalsContent = null,
+    Object? goalsContent = freezed,
+    Object? goals = null,
+    Object? budgetContent = freezed,
+    Object? budgetRanges = null,
+    Object? recommendationsContent = freezed,
+    Object? stock = freezed,
+    Object? topUpCard = freezed,
+    Object? watchlistCard = freezed,
   }) {
     return _then(_value.copyWith(
-      stock: null == stock
-          ? _value.stock
-          : stock // ignore: cast_nullable_to_non_nullable
-              as StockRecommendationModel,
-      topUpCard: null == topUpCard
-          ? _value.topUpCard
-          : topUpCard // ignore: cast_nullable_to_non_nullable
-              as ActionCardModel,
-      watchlistCard: null == watchlistCard
-          ? _value.watchlistCard
-          : watchlistCard // ignore: cast_nullable_to_non_nullable
-              as ActionCardModel,
-      budgetRanges: null == budgetRanges
-          ? _value.budgetRanges
-          : budgetRanges // ignore: cast_nullable_to_non_nullable
-              as List<BudgetRangeModel>,
-      goals: null == goals
-          ? _value.goals
-          : goals // ignore: cast_nullable_to_non_nullable
-              as List<GoalOptionModel>,
-      recommendationsContent: null == recommendationsContent
-          ? _value.recommendationsContent
-          : recommendationsContent // ignore: cast_nullable_to_non_nullable
-              as RecommendationsContent,
-      budgetContent: null == budgetContent
-          ? _value.budgetContent
-          : budgetContent // ignore: cast_nullable_to_non_nullable
-              as BudgetContent,
       experienceContent: null == experienceContent
           ? _value.experienceContent
           : experienceContent // ignore: cast_nullable_to_non_nullable
               as ExperienceContent,
-      goalsContent: null == goalsContent
+      goalsContent: freezed == goalsContent
           ? _value.goalsContent
           : goalsContent // ignore: cast_nullable_to_non_nullable
-              as GoalsContent,
+              as GoalsContent?,
+      goals: null == goals
+          ? _value.goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<GoalOptionModel>,
+      budgetContent: freezed == budgetContent
+          ? _value.budgetContent
+          : budgetContent // ignore: cast_nullable_to_non_nullable
+              as BudgetContent?,
+      budgetRanges: null == budgetRanges
+          ? _value.budgetRanges
+          : budgetRanges // ignore: cast_nullable_to_non_nullable
+              as List<BudgetRangeModel>,
+      recommendationsContent: freezed == recommendationsContent
+          ? _value.recommendationsContent
+          : recommendationsContent // ignore: cast_nullable_to_non_nullable
+              as RecommendationsContent?,
+      stock: freezed == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as StockRecommendationModel?,
+      topUpCard: freezed == topUpCard
+          ? _value.topUpCard
+          : topUpCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel?,
+      watchlistCard: freezed == watchlistCard
+          ? _value.watchlistCard
+          : watchlistCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel?,
     ) as $Val);
-  }
-
-  /// Create a copy of OnboardingConfigModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $StockRecommendationModelCopyWith<$Res> get stock {
-    return $StockRecommendationModelCopyWith<$Res>(_value.stock, (value) {
-      return _then(_value.copyWith(stock: value) as $Val);
-    });
-  }
-
-  /// Create a copy of OnboardingConfigModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ActionCardModelCopyWith<$Res> get topUpCard {
-    return $ActionCardModelCopyWith<$Res>(_value.topUpCard, (value) {
-      return _then(_value.copyWith(topUpCard: value) as $Val);
-    });
-  }
-
-  /// Create a copy of OnboardingConfigModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ActionCardModelCopyWith<$Res> get watchlistCard {
-    return $ActionCardModelCopyWith<$Res>(_value.watchlistCard, (value) {
-      return _then(_value.copyWith(watchlistCard: value) as $Val);
-    });
-  }
-
-  /// Create a copy of OnboardingConfigModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $RecommendationsContentCopyWith<$Res> get recommendationsContent {
-    return $RecommendationsContentCopyWith<$Res>(_value.recommendationsContent,
-        (value) {
-      return _then(_value.copyWith(recommendationsContent: value) as $Val);
-    });
-  }
-
-  /// Create a copy of OnboardingConfigModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $BudgetContentCopyWith<$Res> get budgetContent {
-    return $BudgetContentCopyWith<$Res>(_value.budgetContent, (value) {
-      return _then(_value.copyWith(budgetContent: value) as $Val);
-    });
   }
 
   /// Create a copy of OnboardingConfigModel
@@ -1963,9 +1916,84 @@ class _$OnboardingConfigModelCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $GoalsContentCopyWith<$Res> get goalsContent {
-    return $GoalsContentCopyWith<$Res>(_value.goalsContent, (value) {
+  $GoalsContentCopyWith<$Res>? get goalsContent {
+    if (_value.goalsContent == null) {
+      return null;
+    }
+
+    return $GoalsContentCopyWith<$Res>(_value.goalsContent!, (value) {
       return _then(_value.copyWith(goalsContent: value) as $Val);
+    });
+  }
+
+  /// Create a copy of OnboardingConfigModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BudgetContentCopyWith<$Res>? get budgetContent {
+    if (_value.budgetContent == null) {
+      return null;
+    }
+
+    return $BudgetContentCopyWith<$Res>(_value.budgetContent!, (value) {
+      return _then(_value.copyWith(budgetContent: value) as $Val);
+    });
+  }
+
+  /// Create a copy of OnboardingConfigModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RecommendationsContentCopyWith<$Res>? get recommendationsContent {
+    if (_value.recommendationsContent == null) {
+      return null;
+    }
+
+    return $RecommendationsContentCopyWith<$Res>(_value.recommendationsContent!,
+        (value) {
+      return _then(_value.copyWith(recommendationsContent: value) as $Val);
+    });
+  }
+
+  /// Create a copy of OnboardingConfigModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $StockRecommendationModelCopyWith<$Res>? get stock {
+    if (_value.stock == null) {
+      return null;
+    }
+
+    return $StockRecommendationModelCopyWith<$Res>(_value.stock!, (value) {
+      return _then(_value.copyWith(stock: value) as $Val);
+    });
+  }
+
+  /// Create a copy of OnboardingConfigModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ActionCardModelCopyWith<$Res>? get topUpCard {
+    if (_value.topUpCard == null) {
+      return null;
+    }
+
+    return $ActionCardModelCopyWith<$Res>(_value.topUpCard!, (value) {
+      return _then(_value.copyWith(topUpCard: value) as $Val);
+    });
+  }
+
+  /// Create a copy of OnboardingConfigModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ActionCardModelCopyWith<$Res>? get watchlistCard {
+    if (_value.watchlistCard == null) {
+      return null;
+    }
+
+    return $ActionCardModelCopyWith<$Res>(_value.watchlistCard!, (value) {
+      return _then(_value.copyWith(watchlistCard: value) as $Val);
     });
   }
 }
@@ -1980,30 +2008,30 @@ abstract class _$$OnboardingConfigModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {StockRecommendationModel stock,
-      ActionCardModel topUpCard,
-      ActionCardModel watchlistCard,
-      List<BudgetRangeModel> budgetRanges,
+      {ExperienceContent experienceContent,
+      GoalsContent? goalsContent,
       List<GoalOptionModel> goals,
-      RecommendationsContent recommendationsContent,
-      BudgetContent budgetContent,
-      ExperienceContent experienceContent,
-      GoalsContent goalsContent});
+      BudgetContent? budgetContent,
+      List<BudgetRangeModel> budgetRanges,
+      RecommendationsContent? recommendationsContent,
+      StockRecommendationModel? stock,
+      ActionCardModel? topUpCard,
+      ActionCardModel? watchlistCard});
 
-  @override
-  $StockRecommendationModelCopyWith<$Res> get stock;
-  @override
-  $ActionCardModelCopyWith<$Res> get topUpCard;
-  @override
-  $ActionCardModelCopyWith<$Res> get watchlistCard;
-  @override
-  $RecommendationsContentCopyWith<$Res> get recommendationsContent;
-  @override
-  $BudgetContentCopyWith<$Res> get budgetContent;
   @override
   $ExperienceContentCopyWith<$Res> get experienceContent;
   @override
-  $GoalsContentCopyWith<$Res> get goalsContent;
+  $GoalsContentCopyWith<$Res>? get goalsContent;
+  @override
+  $BudgetContentCopyWith<$Res>? get budgetContent;
+  @override
+  $RecommendationsContentCopyWith<$Res>? get recommendationsContent;
+  @override
+  $StockRecommendationModelCopyWith<$Res>? get stock;
+  @override
+  $ActionCardModelCopyWith<$Res>? get topUpCard;
+  @override
+  $ActionCardModelCopyWith<$Res>? get watchlistCard;
 }
 
 /// @nodoc
@@ -2020,53 +2048,53 @@ class __$$OnboardingConfigModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stock = null,
-    Object? topUpCard = null,
-    Object? watchlistCard = null,
-    Object? budgetRanges = null,
-    Object? goals = null,
-    Object? recommendationsContent = null,
-    Object? budgetContent = null,
     Object? experienceContent = null,
-    Object? goalsContent = null,
+    Object? goalsContent = freezed,
+    Object? goals = null,
+    Object? budgetContent = freezed,
+    Object? budgetRanges = null,
+    Object? recommendationsContent = freezed,
+    Object? stock = freezed,
+    Object? topUpCard = freezed,
+    Object? watchlistCard = freezed,
   }) {
     return _then(_$OnboardingConfigModelImpl(
-      stock: null == stock
-          ? _value.stock
-          : stock // ignore: cast_nullable_to_non_nullable
-              as StockRecommendationModel,
-      topUpCard: null == topUpCard
-          ? _value.topUpCard
-          : topUpCard // ignore: cast_nullable_to_non_nullable
-              as ActionCardModel,
-      watchlistCard: null == watchlistCard
-          ? _value.watchlistCard
-          : watchlistCard // ignore: cast_nullable_to_non_nullable
-              as ActionCardModel,
-      budgetRanges: null == budgetRanges
-          ? _value._budgetRanges
-          : budgetRanges // ignore: cast_nullable_to_non_nullable
-              as List<BudgetRangeModel>,
-      goals: null == goals
-          ? _value._goals
-          : goals // ignore: cast_nullable_to_non_nullable
-              as List<GoalOptionModel>,
-      recommendationsContent: null == recommendationsContent
-          ? _value.recommendationsContent
-          : recommendationsContent // ignore: cast_nullable_to_non_nullable
-              as RecommendationsContent,
-      budgetContent: null == budgetContent
-          ? _value.budgetContent
-          : budgetContent // ignore: cast_nullable_to_non_nullable
-              as BudgetContent,
       experienceContent: null == experienceContent
           ? _value.experienceContent
           : experienceContent // ignore: cast_nullable_to_non_nullable
               as ExperienceContent,
-      goalsContent: null == goalsContent
+      goalsContent: freezed == goalsContent
           ? _value.goalsContent
           : goalsContent // ignore: cast_nullable_to_non_nullable
-              as GoalsContent,
+              as GoalsContent?,
+      goals: null == goals
+          ? _value._goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<GoalOptionModel>,
+      budgetContent: freezed == budgetContent
+          ? _value.budgetContent
+          : budgetContent // ignore: cast_nullable_to_non_nullable
+              as BudgetContent?,
+      budgetRanges: null == budgetRanges
+          ? _value._budgetRanges
+          : budgetRanges // ignore: cast_nullable_to_non_nullable
+              as List<BudgetRangeModel>,
+      recommendationsContent: freezed == recommendationsContent
+          ? _value.recommendationsContent
+          : recommendationsContent // ignore: cast_nullable_to_non_nullable
+              as RecommendationsContent?,
+      stock: freezed == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as StockRecommendationModel?,
+      topUpCard: freezed == topUpCard
+          ? _value.topUpCard
+          : topUpCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel?,
+      watchlistCard: freezed == watchlistCard
+          ? _value.watchlistCard
+          : watchlistCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel?,
     ));
   }
 }
@@ -2075,55 +2103,61 @@ class __$$OnboardingConfigModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OnboardingConfigModelImpl implements _OnboardingConfigModel {
   const _$OnboardingConfigModelImpl(
-      {required this.stock,
-      required this.topUpCard,
-      required this.watchlistCard,
-      required final List<BudgetRangeModel> budgetRanges,
-      required final List<GoalOptionModel> goals,
-      required this.recommendationsContent,
-      required this.budgetContent,
-      required this.experienceContent,
-      required this.goalsContent})
-      : _budgetRanges = budgetRanges,
-        _goals = goals;
+      {required this.experienceContent,
+      this.goalsContent,
+      final List<GoalOptionModel> goals = const [],
+      this.budgetContent,
+      final List<BudgetRangeModel> budgetRanges = const [],
+      this.recommendationsContent,
+      this.stock,
+      this.topUpCard,
+      this.watchlistCard})
+      : _goals = goals,
+        _budgetRanges = budgetRanges;
 
   factory _$OnboardingConfigModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OnboardingConfigModelImplFromJson(json);
 
+// Step 0 — грузится при открытии, всегда есть
   @override
-  final StockRecommendationModel stock;
+  final ExperienceContent experienceContent;
+// Step 1 — грузится при переходе на goals
   @override
-  final ActionCardModel topUpCard;
-  @override
-  final ActionCardModel watchlistCard;
-  final List<BudgetRangeModel> _budgetRanges;
-  @override
-  List<BudgetRangeModel> get budgetRanges {
-    if (_budgetRanges is EqualUnmodifiableListView) return _budgetRanges;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_budgetRanges);
-  }
-
+  final GoalsContent? goalsContent;
   final List<GoalOptionModel> _goals;
   @override
+  @JsonKey()
   List<GoalOptionModel> get goals {
     if (_goals is EqualUnmodifiableListView) return _goals;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_goals);
   }
 
+// Step 2 — грузится при переходе на budget
   @override
-  final RecommendationsContent recommendationsContent;
+  final BudgetContent? budgetContent;
+  final List<BudgetRangeModel> _budgetRanges;
   @override
-  final BudgetContent budgetContent;
+  @JsonKey()
+  List<BudgetRangeModel> get budgetRanges {
+    if (_budgetRanges is EqualUnmodifiableListView) return _budgetRanges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_budgetRanges);
+  }
+
+// Step 3 — грузится при переходе на recommendations
   @override
-  final ExperienceContent experienceContent;
+  final RecommendationsContent? recommendationsContent;
   @override
-  final GoalsContent goalsContent;
+  final StockRecommendationModel? stock;
+  @override
+  final ActionCardModel? topUpCard;
+  @override
+  final ActionCardModel? watchlistCard;
 
   @override
   String toString() {
-    return 'OnboardingConfigModel(stock: $stock, topUpCard: $topUpCard, watchlistCard: $watchlistCard, budgetRanges: $budgetRanges, goals: $goals, recommendationsContent: $recommendationsContent, budgetContent: $budgetContent, experienceContent: $experienceContent, goalsContent: $goalsContent)';
+    return 'OnboardingConfigModel(experienceContent: $experienceContent, goalsContent: $goalsContent, goals: $goals, budgetContent: $budgetContent, budgetRanges: $budgetRanges, recommendationsContent: $recommendationsContent, stock: $stock, topUpCard: $topUpCard, watchlistCard: $watchlistCard)';
   }
 
   @override
@@ -2131,37 +2165,37 @@ class _$OnboardingConfigModelImpl implements _OnboardingConfigModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OnboardingConfigModelImpl &&
+            (identical(other.experienceContent, experienceContent) ||
+                other.experienceContent == experienceContent) &&
+            (identical(other.goalsContent, goalsContent) ||
+                other.goalsContent == goalsContent) &&
+            const DeepCollectionEquality().equals(other._goals, _goals) &&
+            (identical(other.budgetContent, budgetContent) ||
+                other.budgetContent == budgetContent) &&
+            const DeepCollectionEquality()
+                .equals(other._budgetRanges, _budgetRanges) &&
+            (identical(other.recommendationsContent, recommendationsContent) ||
+                other.recommendationsContent == recommendationsContent) &&
             (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.topUpCard, topUpCard) ||
                 other.topUpCard == topUpCard) &&
             (identical(other.watchlistCard, watchlistCard) ||
-                other.watchlistCard == watchlistCard) &&
-            const DeepCollectionEquality()
-                .equals(other._budgetRanges, _budgetRanges) &&
-            const DeepCollectionEquality().equals(other._goals, _goals) &&
-            (identical(other.recommendationsContent, recommendationsContent) ||
-                other.recommendationsContent == recommendationsContent) &&
-            (identical(other.budgetContent, budgetContent) ||
-                other.budgetContent == budgetContent) &&
-            (identical(other.experienceContent, experienceContent) ||
-                other.experienceContent == experienceContent) &&
-            (identical(other.goalsContent, goalsContent) ||
-                other.goalsContent == goalsContent));
+                other.watchlistCard == watchlistCard));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      experienceContent,
+      goalsContent,
+      const DeepCollectionEquality().hash(_goals),
+      budgetContent,
+      const DeepCollectionEquality().hash(_budgetRanges),
+      recommendationsContent,
       stock,
       topUpCard,
-      watchlistCard,
-      const DeepCollectionEquality().hash(_budgetRanges),
-      const DeepCollectionEquality().hash(_goals),
-      recommendationsContent,
-      budgetContent,
-      experienceContent,
-      goalsContent);
+      watchlistCard);
 
   /// Create a copy of OnboardingConfigModel
   /// with the given fields replaced by the non-null parameter values.
@@ -2182,42 +2216,706 @@ class _$OnboardingConfigModelImpl implements _OnboardingConfigModel {
 
 abstract class _OnboardingConfigModel implements OnboardingConfigModel {
   const factory _OnboardingConfigModel(
-      {required final StockRecommendationModel stock,
-      required final ActionCardModel topUpCard,
-      required final ActionCardModel watchlistCard,
-      required final List<BudgetRangeModel> budgetRanges,
-      required final List<GoalOptionModel> goals,
-      required final RecommendationsContent recommendationsContent,
-      required final BudgetContent budgetContent,
-      required final ExperienceContent experienceContent,
-      required final GoalsContent goalsContent}) = _$OnboardingConfigModelImpl;
+      {required final ExperienceContent experienceContent,
+      final GoalsContent? goalsContent,
+      final List<GoalOptionModel> goals,
+      final BudgetContent? budgetContent,
+      final List<BudgetRangeModel> budgetRanges,
+      final RecommendationsContent? recommendationsContent,
+      final StockRecommendationModel? stock,
+      final ActionCardModel? topUpCard,
+      final ActionCardModel? watchlistCard}) = _$OnboardingConfigModelImpl;
 
   factory _OnboardingConfigModel.fromJson(Map<String, dynamic> json) =
       _$OnboardingConfigModelImpl.fromJson;
 
+// Step 0 — грузится при открытии, всегда есть
   @override
-  StockRecommendationModel get stock;
+  ExperienceContent
+      get experienceContent; // Step 1 — грузится при переходе на goals
   @override
-  ActionCardModel get topUpCard;
+  GoalsContent? get goalsContent;
   @override
-  ActionCardModel get watchlistCard;
+  List<GoalOptionModel> get goals; // Step 2 — грузится при переходе на budget
   @override
-  List<BudgetRangeModel> get budgetRanges;
+  BudgetContent? get budgetContent;
   @override
-  List<GoalOptionModel> get goals;
+  List<BudgetRangeModel>
+      get budgetRanges; // Step 3 — грузится при переходе на recommendations
   @override
-  RecommendationsContent get recommendationsContent;
+  RecommendationsContent? get recommendationsContent;
   @override
-  BudgetContent get budgetContent;
+  StockRecommendationModel? get stock;
   @override
-  ExperienceContent get experienceContent;
+  ActionCardModel? get topUpCard;
   @override
-  GoalsContent get goalsContent;
+  ActionCardModel? get watchlistCard;
 
   /// Create a copy of OnboardingConfigModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OnboardingConfigModelImplCopyWith<_$OnboardingConfigModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+GoalsStepData _$GoalsStepDataFromJson(Map<String, dynamic> json) {
+  return _GoalsStepData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$GoalsStepData {
+  GoalsContent get content => throw _privateConstructorUsedError;
+  List<GoalOptionModel> get goals => throw _privateConstructorUsedError;
+
+  /// Serializes this GoalsStepData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of GoalsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $GoalsStepDataCopyWith<GoalsStepData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GoalsStepDataCopyWith<$Res> {
+  factory $GoalsStepDataCopyWith(
+          GoalsStepData value, $Res Function(GoalsStepData) then) =
+      _$GoalsStepDataCopyWithImpl<$Res, GoalsStepData>;
+  @useResult
+  $Res call({GoalsContent content, List<GoalOptionModel> goals});
+
+  $GoalsContentCopyWith<$Res> get content;
+}
+
+/// @nodoc
+class _$GoalsStepDataCopyWithImpl<$Res, $Val extends GoalsStepData>
+    implements $GoalsStepDataCopyWith<$Res> {
+  _$GoalsStepDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of GoalsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? goals = null,
+  }) {
+    return _then(_value.copyWith(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as GoalsContent,
+      goals: null == goals
+          ? _value.goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<GoalOptionModel>,
+    ) as $Val);
+  }
+
+  /// Create a copy of GoalsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GoalsContentCopyWith<$Res> get content {
+    return $GoalsContentCopyWith<$Res>(_value.content, (value) {
+      return _then(_value.copyWith(content: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$GoalsStepDataImplCopyWith<$Res>
+    implements $GoalsStepDataCopyWith<$Res> {
+  factory _$$GoalsStepDataImplCopyWith(
+          _$GoalsStepDataImpl value, $Res Function(_$GoalsStepDataImpl) then) =
+      __$$GoalsStepDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({GoalsContent content, List<GoalOptionModel> goals});
+
+  @override
+  $GoalsContentCopyWith<$Res> get content;
+}
+
+/// @nodoc
+class __$$GoalsStepDataImplCopyWithImpl<$Res>
+    extends _$GoalsStepDataCopyWithImpl<$Res, _$GoalsStepDataImpl>
+    implements _$$GoalsStepDataImplCopyWith<$Res> {
+  __$$GoalsStepDataImplCopyWithImpl(
+      _$GoalsStepDataImpl _value, $Res Function(_$GoalsStepDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GoalsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? goals = null,
+  }) {
+    return _then(_$GoalsStepDataImpl(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as GoalsContent,
+      goals: null == goals
+          ? _value._goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<GoalOptionModel>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GoalsStepDataImpl implements _GoalsStepData {
+  const _$GoalsStepDataImpl(
+      {required this.content, required final List<GoalOptionModel> goals})
+      : _goals = goals;
+
+  factory _$GoalsStepDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GoalsStepDataImplFromJson(json);
+
+  @override
+  final GoalsContent content;
+  final List<GoalOptionModel> _goals;
+  @override
+  List<GoalOptionModel> get goals {
+    if (_goals is EqualUnmodifiableListView) return _goals;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_goals);
+  }
+
+  @override
+  String toString() {
+    return 'GoalsStepData(content: $content, goals: $goals)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GoalsStepDataImpl &&
+            (identical(other.content, content) || other.content == content) &&
+            const DeepCollectionEquality().equals(other._goals, _goals));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, content, const DeepCollectionEquality().hash(_goals));
+
+  /// Create a copy of GoalsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GoalsStepDataImplCopyWith<_$GoalsStepDataImpl> get copyWith =>
+      __$$GoalsStepDataImplCopyWithImpl<_$GoalsStepDataImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GoalsStepDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _GoalsStepData implements GoalsStepData {
+  const factory _GoalsStepData(
+      {required final GoalsContent content,
+      required final List<GoalOptionModel> goals}) = _$GoalsStepDataImpl;
+
+  factory _GoalsStepData.fromJson(Map<String, dynamic> json) =
+      _$GoalsStepDataImpl.fromJson;
+
+  @override
+  GoalsContent get content;
+  @override
+  List<GoalOptionModel> get goals;
+
+  /// Create a copy of GoalsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GoalsStepDataImplCopyWith<_$GoalsStepDataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+BudgetStepData _$BudgetStepDataFromJson(Map<String, dynamic> json) {
+  return _BudgetStepData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BudgetStepData {
+  BudgetContent get content => throw _privateConstructorUsedError;
+  List<BudgetRangeModel> get budgetRanges => throw _privateConstructorUsedError;
+
+  /// Serializes this BudgetStepData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BudgetStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BudgetStepDataCopyWith<BudgetStepData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BudgetStepDataCopyWith<$Res> {
+  factory $BudgetStepDataCopyWith(
+          BudgetStepData value, $Res Function(BudgetStepData) then) =
+      _$BudgetStepDataCopyWithImpl<$Res, BudgetStepData>;
+  @useResult
+  $Res call({BudgetContent content, List<BudgetRangeModel> budgetRanges});
+
+  $BudgetContentCopyWith<$Res> get content;
+}
+
+/// @nodoc
+class _$BudgetStepDataCopyWithImpl<$Res, $Val extends BudgetStepData>
+    implements $BudgetStepDataCopyWith<$Res> {
+  _$BudgetStepDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BudgetStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? budgetRanges = null,
+  }) {
+    return _then(_value.copyWith(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as BudgetContent,
+      budgetRanges: null == budgetRanges
+          ? _value.budgetRanges
+          : budgetRanges // ignore: cast_nullable_to_non_nullable
+              as List<BudgetRangeModel>,
+    ) as $Val);
+  }
+
+  /// Create a copy of BudgetStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BudgetContentCopyWith<$Res> get content {
+    return $BudgetContentCopyWith<$Res>(_value.content, (value) {
+      return _then(_value.copyWith(content: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$BudgetStepDataImplCopyWith<$Res>
+    implements $BudgetStepDataCopyWith<$Res> {
+  factory _$$BudgetStepDataImplCopyWith(_$BudgetStepDataImpl value,
+          $Res Function(_$BudgetStepDataImpl) then) =
+      __$$BudgetStepDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({BudgetContent content, List<BudgetRangeModel> budgetRanges});
+
+  @override
+  $BudgetContentCopyWith<$Res> get content;
+}
+
+/// @nodoc
+class __$$BudgetStepDataImplCopyWithImpl<$Res>
+    extends _$BudgetStepDataCopyWithImpl<$Res, _$BudgetStepDataImpl>
+    implements _$$BudgetStepDataImplCopyWith<$Res> {
+  __$$BudgetStepDataImplCopyWithImpl(
+      _$BudgetStepDataImpl _value, $Res Function(_$BudgetStepDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BudgetStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? budgetRanges = null,
+  }) {
+    return _then(_$BudgetStepDataImpl(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as BudgetContent,
+      budgetRanges: null == budgetRanges
+          ? _value._budgetRanges
+          : budgetRanges // ignore: cast_nullable_to_non_nullable
+              as List<BudgetRangeModel>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BudgetStepDataImpl implements _BudgetStepData {
+  const _$BudgetStepDataImpl(
+      {required this.content,
+      required final List<BudgetRangeModel> budgetRanges})
+      : _budgetRanges = budgetRanges;
+
+  factory _$BudgetStepDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BudgetStepDataImplFromJson(json);
+
+  @override
+  final BudgetContent content;
+  final List<BudgetRangeModel> _budgetRanges;
+  @override
+  List<BudgetRangeModel> get budgetRanges {
+    if (_budgetRanges is EqualUnmodifiableListView) return _budgetRanges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_budgetRanges);
+  }
+
+  @override
+  String toString() {
+    return 'BudgetStepData(content: $content, budgetRanges: $budgetRanges)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BudgetStepDataImpl &&
+            (identical(other.content, content) || other.content == content) &&
+            const DeepCollectionEquality()
+                .equals(other._budgetRanges, _budgetRanges));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, content, const DeepCollectionEquality().hash(_budgetRanges));
+
+  /// Create a copy of BudgetStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BudgetStepDataImplCopyWith<_$BudgetStepDataImpl> get copyWith =>
+      __$$BudgetStepDataImplCopyWithImpl<_$BudgetStepDataImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BudgetStepDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BudgetStepData implements BudgetStepData {
+  const factory _BudgetStepData(
+          {required final BudgetContent content,
+          required final List<BudgetRangeModel> budgetRanges}) =
+      _$BudgetStepDataImpl;
+
+  factory _BudgetStepData.fromJson(Map<String, dynamic> json) =
+      _$BudgetStepDataImpl.fromJson;
+
+  @override
+  BudgetContent get content;
+  @override
+  List<BudgetRangeModel> get budgetRanges;
+
+  /// Create a copy of BudgetStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BudgetStepDataImplCopyWith<_$BudgetStepDataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RecommendationsStepData _$RecommendationsStepDataFromJson(
+    Map<String, dynamic> json) {
+  return _RecommendationsStepData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RecommendationsStepData {
+  RecommendationsContent get content => throw _privateConstructorUsedError;
+  StockRecommendationModel get stock => throw _privateConstructorUsedError;
+  ActionCardModel get topUpCard => throw _privateConstructorUsedError;
+  ActionCardModel get watchlistCard => throw _privateConstructorUsedError;
+
+  /// Serializes this RecommendationsStepData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $RecommendationsStepDataCopyWith<RecommendationsStepData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RecommendationsStepDataCopyWith<$Res> {
+  factory $RecommendationsStepDataCopyWith(RecommendationsStepData value,
+          $Res Function(RecommendationsStepData) then) =
+      _$RecommendationsStepDataCopyWithImpl<$Res, RecommendationsStepData>;
+  @useResult
+  $Res call(
+      {RecommendationsContent content,
+      StockRecommendationModel stock,
+      ActionCardModel topUpCard,
+      ActionCardModel watchlistCard});
+
+  $RecommendationsContentCopyWith<$Res> get content;
+  $StockRecommendationModelCopyWith<$Res> get stock;
+  $ActionCardModelCopyWith<$Res> get topUpCard;
+  $ActionCardModelCopyWith<$Res> get watchlistCard;
+}
+
+/// @nodoc
+class _$RecommendationsStepDataCopyWithImpl<$Res,
+        $Val extends RecommendationsStepData>
+    implements $RecommendationsStepDataCopyWith<$Res> {
+  _$RecommendationsStepDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? stock = null,
+    Object? topUpCard = null,
+    Object? watchlistCard = null,
+  }) {
+    return _then(_value.copyWith(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as RecommendationsContent,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as StockRecommendationModel,
+      topUpCard: null == topUpCard
+          ? _value.topUpCard
+          : topUpCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel,
+      watchlistCard: null == watchlistCard
+          ? _value.watchlistCard
+          : watchlistCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel,
+    ) as $Val);
+  }
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RecommendationsContentCopyWith<$Res> get content {
+    return $RecommendationsContentCopyWith<$Res>(_value.content, (value) {
+      return _then(_value.copyWith(content: value) as $Val);
+    });
+  }
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $StockRecommendationModelCopyWith<$Res> get stock {
+    return $StockRecommendationModelCopyWith<$Res>(_value.stock, (value) {
+      return _then(_value.copyWith(stock: value) as $Val);
+    });
+  }
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ActionCardModelCopyWith<$Res> get topUpCard {
+    return $ActionCardModelCopyWith<$Res>(_value.topUpCard, (value) {
+      return _then(_value.copyWith(topUpCard: value) as $Val);
+    });
+  }
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ActionCardModelCopyWith<$Res> get watchlistCard {
+    return $ActionCardModelCopyWith<$Res>(_value.watchlistCard, (value) {
+      return _then(_value.copyWith(watchlistCard: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$RecommendationsStepDataImplCopyWith<$Res>
+    implements $RecommendationsStepDataCopyWith<$Res> {
+  factory _$$RecommendationsStepDataImplCopyWith(
+          _$RecommendationsStepDataImpl value,
+          $Res Function(_$RecommendationsStepDataImpl) then) =
+      __$$RecommendationsStepDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {RecommendationsContent content,
+      StockRecommendationModel stock,
+      ActionCardModel topUpCard,
+      ActionCardModel watchlistCard});
+
+  @override
+  $RecommendationsContentCopyWith<$Res> get content;
+  @override
+  $StockRecommendationModelCopyWith<$Res> get stock;
+  @override
+  $ActionCardModelCopyWith<$Res> get topUpCard;
+  @override
+  $ActionCardModelCopyWith<$Res> get watchlistCard;
+}
+
+/// @nodoc
+class __$$RecommendationsStepDataImplCopyWithImpl<$Res>
+    extends _$RecommendationsStepDataCopyWithImpl<$Res,
+        _$RecommendationsStepDataImpl>
+    implements _$$RecommendationsStepDataImplCopyWith<$Res> {
+  __$$RecommendationsStepDataImplCopyWithImpl(
+      _$RecommendationsStepDataImpl _value,
+      $Res Function(_$RecommendationsStepDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? stock = null,
+    Object? topUpCard = null,
+    Object? watchlistCard = null,
+  }) {
+    return _then(_$RecommendationsStepDataImpl(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as RecommendationsContent,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as StockRecommendationModel,
+      topUpCard: null == topUpCard
+          ? _value.topUpCard
+          : topUpCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel,
+      watchlistCard: null == watchlistCard
+          ? _value.watchlistCard
+          : watchlistCard // ignore: cast_nullable_to_non_nullable
+              as ActionCardModel,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RecommendationsStepDataImpl implements _RecommendationsStepData {
+  const _$RecommendationsStepDataImpl(
+      {required this.content,
+      required this.stock,
+      required this.topUpCard,
+      required this.watchlistCard});
+
+  factory _$RecommendationsStepDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RecommendationsStepDataImplFromJson(json);
+
+  @override
+  final RecommendationsContent content;
+  @override
+  final StockRecommendationModel stock;
+  @override
+  final ActionCardModel topUpCard;
+  @override
+  final ActionCardModel watchlistCard;
+
+  @override
+  String toString() {
+    return 'RecommendationsStepData(content: $content, stock: $stock, topUpCard: $topUpCard, watchlistCard: $watchlistCard)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecommendationsStepDataImpl &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
+            (identical(other.topUpCard, topUpCard) ||
+                other.topUpCard == topUpCard) &&
+            (identical(other.watchlistCard, watchlistCard) ||
+                other.watchlistCard == watchlistCard));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, content, stock, topUpCard, watchlistCard);
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RecommendationsStepDataImplCopyWith<_$RecommendationsStepDataImpl>
+      get copyWith => __$$RecommendationsStepDataImplCopyWithImpl<
+          _$RecommendationsStepDataImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RecommendationsStepDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RecommendationsStepData implements RecommendationsStepData {
+  const factory _RecommendationsStepData(
+          {required final RecommendationsContent content,
+          required final StockRecommendationModel stock,
+          required final ActionCardModel topUpCard,
+          required final ActionCardModel watchlistCard}) =
+      _$RecommendationsStepDataImpl;
+
+  factory _RecommendationsStepData.fromJson(Map<String, dynamic> json) =
+      _$RecommendationsStepDataImpl.fromJson;
+
+  @override
+  RecommendationsContent get content;
+  @override
+  StockRecommendationModel get stock;
+  @override
+  ActionCardModel get topUpCard;
+  @override
+  ActionCardModel get watchlistCard;
+
+  /// Create a copy of RecommendationsStepData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RecommendationsStepDataImplCopyWith<_$RecommendationsStepDataImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

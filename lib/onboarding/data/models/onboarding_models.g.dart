@@ -155,38 +155,101 @@ Map<String, dynamic> _$$ExperienceLevelModelImplToJson(
 _$OnboardingConfigModelImpl _$$OnboardingConfigModelImplFromJson(
         Map<String, dynamic> json) =>
     _$OnboardingConfigModelImpl(
+      experienceContent: ExperienceContent.fromJson(
+          json['experienceContent'] as Map<String, dynamic>),
+      goalsContent: json['goalsContent'] == null
+          ? null
+          : GoalsContent.fromJson(json['goalsContent'] as Map<String, dynamic>),
+      goals: (json['goals'] as List<dynamic>?)
+              ?.map((e) => GoalOptionModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      budgetContent: json['budgetContent'] == null
+          ? null
+          : BudgetContent.fromJson(
+              json['budgetContent'] as Map<String, dynamic>),
+      budgetRanges: (json['budgetRanges'] as List<dynamic>?)
+              ?.map((e) => BudgetRangeModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      recommendationsContent: json['recommendationsContent'] == null
+          ? null
+          : RecommendationsContent.fromJson(
+              json['recommendationsContent'] as Map<String, dynamic>),
+      stock: json['stock'] == null
+          ? null
+          : StockRecommendationModel.fromJson(
+              json['stock'] as Map<String, dynamic>),
+      topUpCard: json['topUpCard'] == null
+          ? null
+          : ActionCardModel.fromJson(json['topUpCard'] as Map<String, dynamic>),
+      watchlistCard: json['watchlistCard'] == null
+          ? null
+          : ActionCardModel.fromJson(
+              json['watchlistCard'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$OnboardingConfigModelImplToJson(
+        _$OnboardingConfigModelImpl instance) =>
+    <String, dynamic>{
+      'experienceContent': instance.experienceContent,
+      'goalsContent': instance.goalsContent,
+      'goals': instance.goals,
+      'budgetContent': instance.budgetContent,
+      'budgetRanges': instance.budgetRanges,
+      'recommendationsContent': instance.recommendationsContent,
+      'stock': instance.stock,
+      'topUpCard': instance.topUpCard,
+      'watchlistCard': instance.watchlistCard,
+    };
+
+_$GoalsStepDataImpl _$$GoalsStepDataImplFromJson(Map<String, dynamic> json) =>
+    _$GoalsStepDataImpl(
+      content: GoalsContent.fromJson(json['content'] as Map<String, dynamic>),
+      goals: (json['goals'] as List<dynamic>)
+          .map((e) => GoalOptionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$GoalsStepDataImplToJson(_$GoalsStepDataImpl instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+      'goals': instance.goals,
+    };
+
+_$BudgetStepDataImpl _$$BudgetStepDataImplFromJson(Map<String, dynamic> json) =>
+    _$BudgetStepDataImpl(
+      content: BudgetContent.fromJson(json['content'] as Map<String, dynamic>),
+      budgetRanges: (json['budgetRanges'] as List<dynamic>)
+          .map((e) => BudgetRangeModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$BudgetStepDataImplToJson(
+        _$BudgetStepDataImpl instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+      'budgetRanges': instance.budgetRanges,
+    };
+
+_$RecommendationsStepDataImpl _$$RecommendationsStepDataImplFromJson(
+        Map<String, dynamic> json) =>
+    _$RecommendationsStepDataImpl(
+      content: RecommendationsContent.fromJson(
+          json['content'] as Map<String, dynamic>),
       stock: StockRecommendationModel.fromJson(
           json['stock'] as Map<String, dynamic>),
       topUpCard:
           ActionCardModel.fromJson(json['topUpCard'] as Map<String, dynamic>),
       watchlistCard: ActionCardModel.fromJson(
           json['watchlistCard'] as Map<String, dynamic>),
-      budgetRanges: (json['budgetRanges'] as List<dynamic>)
-          .map((e) => BudgetRangeModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      goals: (json['goals'] as List<dynamic>)
-          .map((e) => GoalOptionModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      recommendationsContent: RecommendationsContent.fromJson(
-          json['recommendationsContent'] as Map<String, dynamic>),
-      budgetContent:
-          BudgetContent.fromJson(json['budgetContent'] as Map<String, dynamic>),
-      experienceContent: ExperienceContent.fromJson(
-          json['experienceContent'] as Map<String, dynamic>),
-      goalsContent:
-          GoalsContent.fromJson(json['goalsContent'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$OnboardingConfigModelImplToJson(
-        _$OnboardingConfigModelImpl instance) =>
+Map<String, dynamic> _$$RecommendationsStepDataImplToJson(
+        _$RecommendationsStepDataImpl instance) =>
     <String, dynamic>{
+      'content': instance.content,
       'stock': instance.stock,
       'topUpCard': instance.topUpCard,
       'watchlistCard': instance.watchlistCard,
-      'budgetRanges': instance.budgetRanges,
-      'goals': instance.goals,
-      'recommendationsContent': instance.recommendationsContent,
-      'budgetContent': instance.budgetContent,
-      'experienceContent': instance.experienceContent,
-      'goalsContent': instance.goalsContent,
     };

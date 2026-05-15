@@ -116,17 +116,59 @@ class ExperienceLevelModel with _$ExperienceLevelModel {
 @freezed
 class OnboardingConfigModel with _$OnboardingConfigModel {
   const factory OnboardingConfigModel({
-    required StockRecommendationModel stock,
-    required ActionCardModel topUpCard,
-    required ActionCardModel watchlistCard,
-    required List<BudgetRangeModel> budgetRanges,
-    required List<GoalOptionModel> goals,
-    required RecommendationsContent recommendationsContent,
-    required BudgetContent budgetContent,
+    // Step 0 — грузится при открытии, всегда есть
     required ExperienceContent experienceContent,
-    required GoalsContent goalsContent,
+
+    // Step 1 — грузится при переходе на goals
+    GoalsContent? goalsContent,
+    @Default([]) List<GoalOptionModel> goals,
+
+    // Step 2 — грузится при переходе на budget
+    BudgetContent? budgetContent,
+    @Default([]) List<BudgetRangeModel> budgetRanges,
+
+    // Step 3 — грузится при переходе на recommendations
+    RecommendationsContent? recommendationsContent,
+    StockRecommendationModel? stock,
+    ActionCardModel? topUpCard,
+    ActionCardModel? watchlistCard,
   }) = _OnboardingConfigModel;
 
   factory OnboardingConfigModel.fromJson(Map<String, dynamic> json) =>
       _$OnboardingConfigModelFromJson(json);
+}
+
+@freezed
+class GoalsStepData with _$GoalsStepData {
+  const factory GoalsStepData({
+    required GoalsContent content,
+    required List<GoalOptionModel> goals,
+  }) = _GoalsStepData;
+
+  factory GoalsStepData.fromJson(Map<String, dynamic> json) =>
+      _$GoalsStepDataFromJson(json);
+}
+
+@freezed
+class BudgetStepData with _$BudgetStepData {
+  const factory BudgetStepData({
+    required BudgetContent content,
+    required List<BudgetRangeModel> budgetRanges,
+  }) = _BudgetStepData;
+
+  factory BudgetStepData.fromJson(Map<String, dynamic> json) =>
+      _$BudgetStepDataFromJson(json);
+}
+
+@freezed
+class RecommendationsStepData with _$RecommendationsStepData {
+  const factory RecommendationsStepData({
+    required RecommendationsContent content,
+    required StockRecommendationModel stock,
+    required ActionCardModel topUpCard,
+    required ActionCardModel watchlistCard,
+  }) = _RecommendationsStepData;
+
+  factory RecommendationsStepData.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationsStepDataFromJson(json);
 }

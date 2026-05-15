@@ -3,7 +3,7 @@ import 'package:tech_task_paidax2/themes/theme.dart';
 
 /// Shared back button used across all onboarding sheets.
 class OnboardingBackButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const OnboardingBackButton({super.key, required this.onTap});
 

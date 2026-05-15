@@ -1,31 +1,40 @@
 part of 'onboarding_bloc.dart';
 
-abstract class OnboardingEvent {}
+abstract class OnboardingEvent {
+  const OnboardingEvent();
+}
 
-class FetchConfig extends OnboardingEvent {}
+class FetchConfig extends OnboardingEvent {
+  const FetchConfig();
+}
 
 class SelectExperience extends OnboardingEvent {
   final String experienceId;
-
-  SelectExperience(this.experienceId);
+  const SelectExperience(this.experienceId);
 }
 
 class ToggleGoal extends OnboardingEvent {
   final String goalId;
-
-  ToggleGoal(this.goalId);
+  const ToggleGoal(this.goalId);
 }
 
 class SelectBudget extends OnboardingEvent {
   final String budgetId;
-
-  SelectBudget(this.budgetId);
+  const SelectBudget(this.budgetId);
 }
 
-class NextStep extends OnboardingEvent {}
+class NextStep extends OnboardingEvent {
+  const NextStep();
+}
 
-class PreviousStep extends OnboardingEvent {}
+class PreviousStep extends OnboardingEvent {
+  const PreviousStep();
+}
 
-class FinishOnboarding extends OnboardingEvent {}
+class FinishOnboarding extends OnboardingEvent {
+  const FinishOnboarding();
+}
 
-class SkipOnboarding extends OnboardingEvent {}
+class SkipOnboarding extends OnboardingEvent {
+  const SkipOnboarding();
+}

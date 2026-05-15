@@ -10,9 +10,9 @@ class GoalsSheet extends StatelessWidget {
   final GoalsContent content;
   final Set<String> selectedIds;
   final ValueChanged<String> onToggle;
-  final VoidCallback onNext;
-  final VoidCallback onBack;
-  final VoidCallback onSkip;
+  final VoidCallback? onNext;
+  final VoidCallback? onBack;
+  final VoidCallback? onSkip;
 
   const GoalsSheet({
     super.key,
