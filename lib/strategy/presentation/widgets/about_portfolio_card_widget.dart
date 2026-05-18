@@ -105,15 +105,14 @@ class PortfolioAboutCard extends StatelessWidget {
 
           // ─── Stats ───────────────────────────────────────────────────
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       subscribersCount,
-                      style: theme.headlineSmall?.copyWith(
+                      style: theme.headlineMedium?.copyWith(
                         color: PaidaxColors.primary,
                         fontWeight: FontWeight.w700,
                       ),
@@ -129,11 +128,11 @@ class PortfolioAboutCard extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       aum,
-                      style: theme.headlineSmall?.copyWith(
+                      style: theme.headlineMedium?.copyWith(
                         color: PaidaxColors.primary,
                         fontWeight: FontWeight.w700,
                       ),
@@ -149,7 +148,6 @@ class PortfolioAboutCard extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 15),
 
           const Divider(color: PaidaxColors.divider),
