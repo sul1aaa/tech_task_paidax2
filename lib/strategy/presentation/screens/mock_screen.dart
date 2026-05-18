@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tech_task_paidax2/strategy/data/models/etf_assets_model.dart';
 import 'package:tech_task_paidax2/strategy/data/models/portfolio_about_data_model.dart';
+import 'package:tech_task_paidax2/strategy/data/models/strategy_banner_data_model.dart';
 import 'package:tech_task_paidax2/strategy/presentation/widgets/about_portfolio_card_widget.dart';
 import 'package:tech_task_paidax2/strategy/presentation/widgets/asset_distribution_card_widget.dart';
+import 'package:tech_task_paidax2/strategy/presentation/widgets/strategy_banner_card_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class PortfolioCompositionScreen extends StatefulWidget {
@@ -49,6 +51,13 @@ class _PortfolioCompositionScreenState
                 subscribersCount: mockPortfolioAbout.subscribersCount,
                 aum: mockPortfolioAbout.aum,
                 onViewProfile: () {},
+              ),
+
+              const SizedBox(height: 50),
+
+              StrategyBannerCard(
+                data: mockStrategyBanner,
+                onTap: () {},
               ),
             ],
           ),
