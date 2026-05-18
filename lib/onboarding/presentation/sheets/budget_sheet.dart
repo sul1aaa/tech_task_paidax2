@@ -29,70 +29,62 @@ class BudgetSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 16),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               OnboardingBackButton(onTap: onBack),
               OnboardingSkipButton(onSkip: onSkip),
             ],
           ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(content.title, style: theme.displayMedium),
-        ),
-        const SizedBox(height: 4),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                BudgetRangeSelector(
-                  budgetRanges: budgetRanges,
-                  selectedId: selectedId,
-                  onChanged: onChanged,
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PaidaxColors.infoNoteBg,
-                    borderRadius: BorderRadius.circular(10),
+          const SizedBox(height: 20),
+          Text(content.title, style: theme.displayMedium),
+          const SizedBox(height: 4),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  BudgetRangeSelector(
+                    budgetRanges: budgetRanges,
+                    selectedId: selectedId,
+                    onChanged: onChanged,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.info_outline_rounded,
-                            size: 15, color: PaidaxColors.primary),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            content.infoNote,
-                            style: theme.bodySmall
-                                ?.copyWith(color: PaidaxColors.secondaryText),
+                  const SizedBox(height: 12),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: PaidaxColors.infoNoteBg,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.info_outline_rounded,
+                              size: 15, color: PaidaxColors.primary),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              content.infoNote,
+                              style: theme.bodySmall
+                                  ?.copyWith(color: PaidaxColors.secondaryText),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24)
-              .copyWith(top: 12, bottom: 28),
-          child: AnimatedOpacity(
+          AnimatedOpacity(
             duration: const Duration(milliseconds: 200),
             opacity: selectedId != null ? 1.0 : 0.4,
             child: FilledButton(
@@ -100,8 +92,11 @@ class BudgetSheet extends StatelessWidget {
               child: const Text('Продолжить'),
             ),
           ),
-        ),
-      ],
+          SizedBox(
+            height: 18,
+          )
+        ],
+      ),
     );
   }
 }

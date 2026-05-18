@@ -25,51 +25,47 @@ class ExperienceSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24)
-              .copyWith(top: 16, bottom: 0),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [OnboardingSkipButton(onSkip: onSkip)],
           ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(
+          const SizedBox(height: 20),
+          Text(
             content.title,
             textAlign: TextAlign.center,
             style: theme.displayMedium,
           ),
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Text(
-            content.subtitle,
-            textAlign: TextAlign.center,
-            style: theme.bodyLarge?.copyWith(color: PaidaxColors.secondaryText),
-          ),
-        ),
-        const SizedBox(height: 40),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            physics: const BouncingScrollPhysics(),
-            child: ExperienceLevelSelector(
-              levels: content.levels,
-              selectedId: selected,
-              onChanged: (id) {
-                onChanged(id);
-                onNext?.call();
-              },
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              content.subtitle,
+              textAlign: TextAlign.center,
+              style:
+                  theme.bodyLarge?.copyWith(color: PaidaxColors.secondaryText),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 40),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: ExperienceLevelSelector(
+                levels: content.levels,
+                selectedId: selected,
+                onChanged: (id) {
+                  onChanged(id);
+                  onNext?.call();
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

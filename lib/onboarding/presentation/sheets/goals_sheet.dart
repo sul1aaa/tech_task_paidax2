@@ -27,52 +27,40 @@ class GoalsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 16),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               OnboardingBackButton(onTap: onBack),
               OnboardingSkipButton(onSkip: onSkip),
             ],
           ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(content.title,
-              style: Theme.of(context).textTheme.displayLarge),
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(
+          const SizedBox(height: 20),
+          Text(content.title, style: Theme.of(context).textTheme.displayLarge),
+          const SizedBox(height: 8),
+          Text(
             content.subtitle,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontSize: 18,
                 color: PaidaxColors.primaryText,
                 letterSpacing: -0.44),
           ),
-        ),
-        const SizedBox(height: 24),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            physics: const BouncingScrollPhysics(),
-            child: GoalGrid(
-              options: goals,
-              selectedIds: selectedIds,
-              onToggle: onToggle,
+          const SizedBox(height: 24),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: GoalGrid(
+                options: goals,
+                selectedIds: selectedIds,
+                onToggle: onToggle,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24)
-              .copyWith(top: 12, bottom: 24),
-          child: AnimatedOpacity(
+          AnimatedOpacity(
             duration: const Duration(milliseconds: 200),
             opacity: selectedIds.isNotEmpty ? 1.0 : 0.4,
             child: FilledButton(
@@ -80,8 +68,11 @@ class GoalsSheet extends StatelessWidget {
               child: const Text('Продолжить'),
             ),
           ),
-        ),
-      ],
+          SizedBox(
+            height: 18,
+          )
+        ],
+      ),
     );
   }
 }
