@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SuccessIcon extends StatelessWidget {
-  const SuccessIcon({super.key});
+class SuccessIconBlue extends StatelessWidget {
+  const SuccessIconBlue({super.key});
 
   @override
   Widget build(BuildContext context) {

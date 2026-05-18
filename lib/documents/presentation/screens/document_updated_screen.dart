@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tech_task_paidax2/documents/presentation/widgets/success_icon_widget.dart';
+import 'package:tech_task_paidax2/documents/presentation/widgets/success_icon_blue_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
 class DocumentUpdatedScreen extends StatelessWidget {
@@ -22,7 +22,7 @@ class DocumentUpdatedScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              const Center(child: SuccessIcon()),
+              const Center(child: SuccessIconBlue()),
               const SizedBox(height: 32),
               Column(
                 children: [

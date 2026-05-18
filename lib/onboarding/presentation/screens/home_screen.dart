@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tech_task_paidax2/documents/presentation/screens/document_updated_screen.dart';
 import 'package:tech_task_paidax2/documents/presentation/screens/document_widgets_preview_screen.dart';
+import 'package:tech_task_paidax2/strategy/presentation/screens/mock_screen.dart';
+import 'package:tech_task_paidax2/strategy/presentation/screens/strategy_confirmation_screen.dart';
+import 'package:tech_task_paidax2/strategy/presentation/screens/strategy_screen.dart';
 
 import '../../../themes/theme.dart';
 import '../../onboarding_flow.dart';
@@ -88,12 +91,35 @@ class HomeScreen extends StatelessWidget {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: const [
-                  _FeaturePill(icon: Icons.shield_outlined, label: 'Secure'),
+                children: [
                   _FeaturePill(
-                      icon: Icons.auto_awesome_rounded, label: 'AI-powered'),
+                    icon: Icons.shield_outlined,
+                    label: 'Secure',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const StrategyScreen(),
+                      ),
+                    ),
+                  ),
                   _FeaturePill(
-                      icon: Icons.trending_up_rounded, label: 'Real-time data'),
+                    icon: Icons.auto_awesome_rounded,
+                    label: 'AI-powered',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const StrategyConfirmationScreen()),
+                    ),
+                  ),
+                  _FeaturePill(
+                    icon: Icons.trending_up_rounded,
+                    label: 'Real-time data',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const PortfolioCompositionScreen()),
+                    ),
+                  ),
                 ],
               ),
 
@@ -143,31 +169,36 @@ class HomeScreen extends StatelessWidget {
 class _FeaturePill extends StatelessWidget {
   final IconData icon;
   final String label;
+  final VoidCallback? onTap; // ← add this
 
-  const _FeaturePill({required this.icon, required this.label});
+  const _FeaturePill({
+    required this.icon,
+    required this.label,
+    this.onTap, // ← add this
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-      decoration: BoxDecoration(
-        color: PaidaxColors.greyBg,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: PaidaxColors.primary),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: PaidaxColors.primaryText,
+    return GestureDetector(
+      onTap: onTap, // ← wrap with GestureDetector
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: PaidaxColors.primary.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: PaidaxColors.primary.withOpacity(0.2)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: PaidaxColors.primary),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: const TextStyle(color: PaidaxColors.primary, fontSize: 12),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
