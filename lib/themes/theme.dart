@@ -83,6 +83,7 @@ class PaidaxColors {
 
   // ── Text ─────────────────────────────────────────────────────────────────
   static const Color primaryText = Colors.black;
+  static const Color darkgreyText = Color(0xff424242);
   static const Color secondaryText = Color(0xFF808388);
   static const Color onPrimaryText = Colors.white;
   static const Color greyText = Color(0xFFD1D5DB);
