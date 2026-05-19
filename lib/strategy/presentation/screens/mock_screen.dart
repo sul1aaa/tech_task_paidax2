@@ -17,6 +17,8 @@ class PortfolioCompositionScreen extends StatefulWidget {
 
 class _PortfolioCompositionScreenState
     extends State<PortfolioCompositionScreen> {
+  bool showAll = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
@@ -34,7 +36,11 @@ class _PortfolioCompositionScreenState
               const SizedBox(height: 16),
 
               // ─── Asset Distribution Card ────────────────────────────
-              AssetDistributionCard(assets: mockEtfAssets),
+              AssetDistributionCard(
+                assets: mockEtfAssets,
+                showAll: showAll,
+                onToggle: () => setState(() => showAll = !showAll),
+              ),
 
               const SizedBox(height: 32),
 

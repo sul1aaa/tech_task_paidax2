@@ -5,27 +5,22 @@ import 'package:tech_task_paidax2/strategy/data/models/etf_assets_model.dart';
 import 'package:tech_task_paidax2/strategy/presentation/widgets/app_divider_widget.dart';
 import 'package:tech_task_paidax2/themes/theme.dart';
 
-class AssetDistributionCard extends StatefulWidget {
+class AssetDistributionCard extends StatelessWidget {
   final List<EtfAsset> assets;
+  final bool showAll;
+  final VoidCallback onToggle;
 
   const AssetDistributionCard({
     super.key,
     required this.assets,
+    required this.showAll,
+    required this.onToggle,
   });
-
-  @override
-  State<AssetDistributionCard> createState() => _AssetDistributionCardState();
-}
-
-class _AssetDistributionCardState extends State<AssetDistributionCard> {
-  bool _showAll = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final visibleAssets =
-        _showAll ? widget.assets : widget.assets.take(3).toList();
-
+    final visibleAssets = showAll ? assets : assets.take(3).toList();
     return Container(
       padding: EdgeInsets.all(19).copyWith(bottom: 10),
       width: double.infinity,
@@ -50,7 +45,7 @@ class _AssetDistributionCardState extends State<AssetDistributionCard> {
             children: [
               Text('Распределение активов', style: theme.titleSmall),
               Text(
-                '${widget.assets.length} ETF',
+                '${assets.length} ETF',
                 style: theme.bodySmall?.copyWith(
                   color: PaidaxColors.secondaryText,
                 ),
@@ -63,10 +58,10 @@ class _AssetDistributionCardState extends State<AssetDistributionCard> {
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Row(
-              children: widget.assets.asMap().entries.map((entry) {
+              children: assets.asMap().entries.map((entry) {
                 final index = entry.key;
                 final asset = entry.value;
-                final isLast = index == widget.assets.length - 1;
+                final isLast = index == assets.length - 1;
 
                 return Expanded(
                   flex: asset.percentage,
@@ -137,13 +132,13 @@ class _AssetDistributionCardState extends State<AssetDistributionCard> {
             padding: const EdgeInsets.symmetric(horizontal: 0),
           ),
           GestureDetector(
-            onTap: () => setState(() => _showAll = !_showAll),
+            onTap: onToggle,
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.only(top: 13),
               child: Center(
                 child: Text(
-                  _showAll ? 'Скрыть' : 'И другие акции',
+                  showAll ? 'Скрыть' : 'И другие акции',
                   style: theme.bodyMedium?.copyWith(
                       color: PaidaxColors.secondaryText, fontSize: 13),
                 ),
