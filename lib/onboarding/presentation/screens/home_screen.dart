@@ -141,7 +141,6 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DocumentUpdatedScreen(
-                          // Передаем функцию, которая выполнится ТОЛЬКО при нажатии кнопки внутри экрана
                           onGoBack: () => Navigator.pop(context),
                         ),
                       ),
@@ -169,18 +168,18 @@ class HomeScreen extends StatelessWidget {
 class _FeaturePill extends StatelessWidget {
   final IconData icon;
   final String label;
-  final VoidCallback? onTap; // ← add this
+  final VoidCallback? onTap;
 
   const _FeaturePill({
     required this.icon,
     required this.label,
-    this.onTap, // ← add this
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap, // ← wrap with GestureDetector
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(

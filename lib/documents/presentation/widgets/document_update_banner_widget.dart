@@ -91,7 +91,7 @@ class DocumentUpdateBanner extends StatelessWidget {
                           height: 16,
                           width: 16,
                           child:
-                              SvgPicture.asset('assets/images/icon_scan.svg')),
+                              SvgPicture.asset('assets/icons/icon_scan.svg')),
                       SizedBox(
                         width: 8,
                       ),
